@@ -34,7 +34,9 @@ public class Building : MonoBehaviour
     ParticleSystem particle;
     [SerializeField]
     int range;
+    public BoundsInt currRange;
     public int Range {get { return range; }}
+    public List<Vector3Int> withinRange;
     private void Start()
     {
         selected = false;
@@ -53,6 +55,7 @@ public class Building : MonoBehaviour
     }
     private void Update()
     {
+
         if (Input.GetMouseButtonDown(1))
         {
             if (selected)
@@ -76,6 +79,10 @@ public class Building : MonoBehaviour
         {
             generateDelay = 0;
             generateAmount = 0;
+        }
+        if (Placed)
+        {
+            withinRange = GetCoordinatesWithinBounds(currRange);
         }
     }
 
@@ -106,6 +113,17 @@ public class Building : MonoBehaviour
         {
             selected = false;
         }
+    }
+    private List<Vector3Int> GetCoordinatesWithinBounds(BoundsInt bounds)
+    {
+        List<Vector3Int> coordinates = new List<Vector3Int>();
+
+        foreach (var position in bounds.allPositionsWithin)
+        {
+            coordinates.Add(position);
+        }
+
+        return coordinates;
     }
 
     #region Placement Method

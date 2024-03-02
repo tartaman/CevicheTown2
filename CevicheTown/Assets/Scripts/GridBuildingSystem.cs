@@ -100,6 +100,7 @@ public class GridBuildingSystem : MonoBehaviour
                         {
                             //Movemos nuestro edificio temporal a la grid
                             temp.Place();
+                            temp.currRange = Currentrange;
                             Destroy(previewBuilding);
                             temp.SetSortingOrder();
                             temp = null;
