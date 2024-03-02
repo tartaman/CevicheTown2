@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3e1f801fda75cd489c26138e66f1bf9, type: 3}
+  m_Name: ObjectsDatabase
+  m_EditorClassIdentifier: 
+  objectsdata:
+  - <Name>k__BackingField: Casa
+    <ID>k__BackingField: 0
+    <prefab>k__BackingField: {fileID: 6130419792037695011, guid: ca09182157441054b88b396d4f5d994b, type: 3}
+  - <Name>k__BackingField: Ceviche
+    <ID>k__BackingField: 1
+    <prefab>k__BackingField: {fileID: 3683056607553216354, guid: d0d38ac02d30c144a9024ffb8f5e0c12, type: 3}
