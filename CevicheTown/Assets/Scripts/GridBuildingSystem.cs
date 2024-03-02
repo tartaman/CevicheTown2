@@ -174,6 +174,7 @@ public class GridBuildingSystem : MonoBehaviour
     //Hace una instancia del prefab que se le da y se lo pasa a preview building, se pone transparente y empieza la previsualizacion
     public void InitializeWithBuilding(GameObject building)
     {
+        
         isPlacing = true;
         temp = Instantiate(building, new Vector3(10000,10000,10000 ), Quaternion.identity).GetComponent<Building>();
         previewBuilding = Instantiate(temp.gameObject);
@@ -199,7 +200,7 @@ public class GridBuildingSystem : MonoBehaviour
 
     private void ClearArea()
     {
-        TileBase[] toClear = new TileBase[prevArea.size.x * prevArea.size.y * prevArea.size.z];
+        TileBase[] toClear = new TileBase[prevArea.size.x * prevArea.size.y * prevArea.size.z * 2];
         FillTiles(toClear, tileTypes.Empty);
         temptilemap.SetTilesBlock(prevArea, toClear);
 
@@ -213,6 +214,7 @@ public class GridBuildingSystem : MonoBehaviour
         //Tomamos la posicion del objeto que acabamos de mover y sacamos el area (Este método se llama en update)
         temp.area.position = gridLayout.WorldToCell(temp.gameObject.transform.position);
         BoundsInt buildingArea = temp.area;
+        
         //Obtenemos un arreglo lleno de las tiles de la base
         TileBase[] BaseArray = GetTilesBlock(buildingArea, maintilemap);
         int size = BaseArray.Length;
@@ -230,6 +232,7 @@ public class GridBuildingSystem : MonoBehaviour
                 break;
             }
         }
+        
         //Ponemos las tiles del temp tilemap rojas o verdes respectivamente para una previsualizacion
         temptilemap.SetTilesBlock(buildingArea, tileArray);
         //Sabemos ahora que el area donde construiriamos tambien es la anterior para sobreescribirla
@@ -289,6 +292,20 @@ public class GridBuildingSystem : MonoBehaviour
                 break;
             }
         }
+        //El rango es rango veces el tamaño
+        BoundsInt range = buildingArea;
+        range.xMin -= previewBuilding.GetComponent<Building>().Range;
+        range.yMin -= previewBuilding.GetComponent<Building>().Range;
+        range.xMax += previewBuilding.GetComponent<Building>().Range;
+        range.yMax += previewBuilding.GetComponent<Building>().Range;
+        TileBase[] RangeArray = GetTilesBlock(range, maintilemap);
+        int rangesize = RangeArray.Length;
+        TileBase[] tilerangeArray = new TileBase[rangesize];
+        for (int i = 0; i < RangeArray.Length; i++)
+        {
+            tilerangeArray[i] = tileBases[tileTypes.White];
+        }
+        temptilemap.SetTilesBlock(range, tilerangeArray);
         //Checo si se puede poner el edificio temporal y si sí entonces le pongo color verde en este caso el material
         //Si no le pongo material rojo
         if (canplace)
@@ -304,6 +321,18 @@ public class GridBuildingSystem : MonoBehaviour
         temptilemap.SetTilesBlock(buildingArea, tileArray);
         prevArea = buildingArea;
         previewBuilding.GetComponent<Building>().SetSortingOrder();
+        ResetRangeTiles(range);
+    }
+    private void ResetRangeTiles(BoundsInt range)
+    {
+        // Crea un arreglo de tiles vacío del tamaño del área
+        TileBase[] emptyTiles = new TileBase[range.size.x * range.size.y * range.size.z];
+
+        // Llena el arreglo con tiles del tipo Empty
+        FillTiles(emptyTiles, tileTypes.Empty);
+
+        // Establece los tiles en el área especificada como tiles vacíos
+        temptilemap.SetTilesBlock(range, emptyTiles);
     }
 }
 

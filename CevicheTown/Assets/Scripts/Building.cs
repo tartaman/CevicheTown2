@@ -21,8 +21,8 @@ public class Building : MonoBehaviour
     [SerializeField]
     public int generateAmount;
     [SerializeField]
-    bool selected; 
-    public bool Selected {  get { return selected; } set {  selected = value; } } 
+    bool selected;
+    public bool Selected { get { return selected; } set { selected = value; } }
     [SerializeField]
     Material selectedMaterial;
     [SerializeField]
@@ -32,6 +32,9 @@ public class Building : MonoBehaviour
     [SerializeField]
     Sprite ProducedMaterialSprite;
     ParticleSystem particle;
+    [SerializeField]
+    int range;
+    public int Range {get { return range; }}
     private void Start()
     {
         selected = false;
@@ -41,11 +44,12 @@ public class Building : MonoBehaviour
             particle.transform.position = transform.position + new Vector3(0,4f,0);
             particle.textureSheetAnimation.SetSprite(0, ProducedMaterialSprite);
             particle.Pause();
+            StartCoroutine(GenerateCurrency());
         } else
         {
             particle = null;
         }
-        StartCoroutine(GenerateCurrency());
+        
     }
     private void Update()
     {
@@ -81,7 +85,7 @@ public class Building : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
 
         // Check if the click hits this building and if it's placed and not already in upgrading mode
-        if (hit.collider != null && hit.collider.gameObject == gameObject && Placed && !EventSystem.current.IsPointerOverGameObject())
+        if (hit.collider != null && hit.collider.gameObject == gameObject && Placed && !EventSystem.current.IsPointerOverGameObject() && buildingType == TypeBuilding.Generative)
         {
             GameObject.FindGameObjectWithTag("CinemachineCamera").GetComponent<CinemachineVirtualCamera>().Follow = transform;
             // Set this building as selected
@@ -191,5 +195,6 @@ public class Building : MonoBehaviour
 public enum TypeBuilding
 {
     Deco,
-    Generative
+    Generative,
+    Resource
 }
