@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -38,8 +39,8 @@ public class GridBuildingSystem : MonoBehaviour
     // Objeto de previsualización del edificio
     public GameObject previewBuilding;
     public bool isPlacing = false;
-    Building lastBuildingPlaced;
-    bool hasPlacedR;
+    [SerializeField]
+    public BoundsInt Currentrange;
     #region Unity Method
     private void Awake()
     {
@@ -65,11 +66,12 @@ public class GridBuildingSystem : MonoBehaviour
     {
         if (temp)
         {
+            CalculateRange();
             UpdatePreviewBuilding(); // Actualizar la previsualización del edificio si existe
         }
-
         if (Input.GetMouseButtonDown(0))//SI da click
         {
+            
             if (EventSystem.current.IsPointerOverGameObject(0))//Si ese click fue sobre algun gameobject
             {
                 return;
@@ -100,11 +102,11 @@ public class GridBuildingSystem : MonoBehaviour
                             temp.Place();
                             Destroy(previewBuilding);
                             temp.SetSortingOrder();
-                            lastBuildingPlaced = temp;
                             temp = null;
                             boton.interactable = true;
                             ClearArea();
                             isPlacing = false;
+                            
                         }
                         else
                         {
@@ -200,7 +202,7 @@ public class GridBuildingSystem : MonoBehaviour
 
     private void ClearArea()
     {
-        TileBase[] toClear = new TileBase[prevArea.size.x * prevArea.size.y * prevArea.size.z * 2];
+        TileBase[] toClear = new TileBase[prevArea.size.x * prevArea.size.y * prevArea.size.z];
         FillTiles(toClear, tileTypes.Empty);
         temptilemap.SetTilesBlock(prevArea, toClear);
 
@@ -248,7 +250,7 @@ public class GridBuildingSystem : MonoBehaviour
         {
             if (b != temp.AcceptedTile)
             {
-                Debug.Log("Cant place here");
+                UnityEngine.Debug.Log("Cant place here");
                 return false;
             }
         }
@@ -293,12 +295,13 @@ public class GridBuildingSystem : MonoBehaviour
             }
         }
         //El rango es rango veces el tamaño
-        BoundsInt range = buildingArea;
+        BoundsInt range = prevArea;
         range.xMin -= previewBuilding.GetComponent<Building>().Range;
         range.yMin -= previewBuilding.GetComponent<Building>().Range;
         range.xMax += previewBuilding.GetComponent<Building>().Range;
         range.yMax += previewBuilding.GetComponent<Building>().Range;
         TileBase[] RangeArray = GetTilesBlock(range, maintilemap);
+        ResetRangeTiles(range);
         int rangesize = RangeArray.Length;
         TileBase[] tilerangeArray = new TileBase[rangesize];
         for (int i = 0; i < RangeArray.Length; i++)
@@ -306,6 +309,11 @@ public class GridBuildingSystem : MonoBehaviour
             tilerangeArray[i] = tileBases[tileTypes.White];
         }
         temptilemap.SetTilesBlock(range, tilerangeArray);
+        if (prevArea != buildingArea)
+        {
+            UnityEngine.Debug.Log("Changed mousepos");
+            ResetRangeTiles(range);
+        }
         //Checo si se puede poner el edificio temporal y si sí entonces le pongo color verde en este caso el material
         //Si no le pongo material rojo
         if (canplace)
@@ -321,7 +329,16 @@ public class GridBuildingSystem : MonoBehaviour
         temptilemap.SetTilesBlock(buildingArea, tileArray);
         prevArea = buildingArea;
         previewBuilding.GetComponent<Building>().SetSortingOrder();
-        ResetRangeTiles(range);
+
+    }
+    private void CalculateRange()
+    {
+        BoundsInt buildingArea = new BoundsInt(gridLayout.WorldToCell(temp.transform.position), temp.area.size);
+        Currentrange = buildingArea;
+        Currentrange.xMin -= previewBuilding.GetComponent<Building>().Range;
+        Currentrange.yMin -= previewBuilding.GetComponent<Building>().Range;
+        Currentrange.xMax += previewBuilding.GetComponent<Building>().Range;
+        Currentrange.yMax += previewBuilding.GetComponent<Building>().Range;
     }
     private void ResetRangeTiles(BoundsInt range)
     {

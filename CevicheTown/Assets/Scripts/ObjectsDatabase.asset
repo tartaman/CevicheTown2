@@ -19,3 +19,6 @@ MonoBehaviour:
   - <Name>k__BackingField: Ceviche
     <ID>k__BackingField: 1
     <prefab>k__BackingField: {fileID: 3683056607553216354, guid: d0d38ac02d30c144a9024ffb8f5e0c12, type: 3}
+  - <Name>k__BackingField: Ceviche
+    <ID>k__BackingField: 1
+    <prefab>k__BackingField: {fileID: 3683056607553216354, guid: d0d38ac02d30c144a9024ffb8f5e0c12, type: 3}
