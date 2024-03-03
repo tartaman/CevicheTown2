@@ -16,28 +16,14 @@ public class ResourceScript : Building
     }
     private void Update()
     {
-        if (Placed)
-            CheckIfInsideRange();
+
     }
-    private void CheckIfInsideRange()
+    public override void Place()
     {
-        foreach (Building building in GridBuildingSystem.instance.placedBuildings)
+        base.Place();
+        if (buildingType == TypeBuilding.Resource)
         {
-            // Verificar si el edificio tiene el recurso necesario
-            if (building.neededResourceId == id)
-            {
-                // Iterar sobre todas las posiciones dentro del rango del edificio
-                foreach (var position in building.currRange.allPositionsWithin)
-                {
-                    // Verificar si la posición actual coincide con la posición del recurso
-                    if (position == area.position)
-                    {
-                        // El recurso está dentro del rango del edificio
-                        building.HasNeededResource = true;
-                        Debug.Log($"Building at {building.area.position} has the needed resource.");
-                    }
-                }
-            }
+            GridBuildingSystem.instance.Enviroment.Add(this);
         }
     }
 }

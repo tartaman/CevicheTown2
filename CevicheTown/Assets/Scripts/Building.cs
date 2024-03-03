@@ -43,7 +43,8 @@ public class Building : MonoBehaviour
     public int neededResourceId;
     [SerializeField]
     public bool HasNeededResource;
-
+    [SerializeField]
+    private List<ResourceScript> ResourcesInsideRange;
     private void Start()
     {
         HasNeededResource = false;
@@ -71,27 +72,30 @@ public class Building : MonoBehaviour
             }
         }
         // Check for mouse clicks
-        if (Input.GetMouseButtonDown(0) && !GridBuildingSystem.instance.isPlacing && !UpgradeScript.instance.isUpgrading) // Left mouse button
+        if (Input.GetMouseButtonDown(0) && !GridBuildingSystem.instance.isPlacing && !UpgradeScript.instance.isUpgrading && !EventSystem.current.IsPointerOverGameObject()) // Left mouse button
         {
             CheckMouseClick();
         }
         if (selected)
         {
             GetComponentInChildren<SpriteRenderer>().material = selectedMaterial;
+            GridBuildingSystem.SetTilesBlock(currRange, tileTypes.White, GridBuildingSystem.instance.temptilemap);
         } else if (Placed)
         {
             GetComponentInChildren<SpriteRenderer>().material = selectedMaterialOverride;
         }
-        if (buildingType == TypeBuilding.Deco)
+        if (buildingType == TypeBuilding.Deco || buildingType == TypeBuilding.Resource)
         {
             generateDelay = 0;
             generateAmount = 0;
         }
         if (Placed)
         {
-            currRange.position = area.position;
-            withinRange = GetCoordinatesWithinBounds(currRange);
-
+            CheckIfInsideRange();
+            if (!GridBuildingSystem.instance.isPlacing && !UpgradeScript.instance.isUpgrading)
+            {
+                GridBuildingSystem.SetTilesBlock(currRange, tileTypes.Empty, GridBuildingSystem.instance.temptilemap);
+            }
         }
     }
 
@@ -123,17 +127,6 @@ public class Building : MonoBehaviour
             selected = false;
         }
     }
-    private List<Vector3Int> GetCoordinatesWithinBounds(BoundsInt bounds)
-    {
-        List<Vector3Int> coordinates = new List<Vector3Int>();
-
-        foreach (var position in bounds.allPositionsWithin)
-        {
-            coordinates.Add(position);
-        }
-
-        return coordinates;
-    }
 
     #region Placement Method
     public bool CanBeplaced()
@@ -149,7 +142,7 @@ public class Building : MonoBehaviour
         return false;
     }
 
-    public void Place()
+    public virtual void Place()
     {
         Vector3Int positionInt = GridBuildingSystem.instance.gridLayout.LocalToCell(transform.position);
         BoundsInt areaTemp = area;
@@ -157,11 +150,11 @@ public class Building : MonoBehaviour
         Placed = true;
         GridBuildingSystem.instance.TakeArea(areaTemp);
         ShopController.instance.currency -= cost;
-        GridBuildingSystem.instance.placedBuildings.Add(this);
+        if (TypeBuilding.Deco == buildingType || TypeBuilding.Generative == buildingType)
+            GridBuildingSystem.instance.placedBuildings.Add(this);
     }
     public int SetSortingOrder()
     {
-
         order = GridBuildingSystem.instance.gridLayout.LocalToCell(transform.position).y * -1 - GridBuildingSystem.instance.gridLayout.LocalToCell(transform.position).x;
 
         Renderer renderer = GetComponentInChildren<Renderer>();
@@ -180,6 +173,29 @@ public class Building : MonoBehaviour
         return order;
     }
     #endregion
+    private void CheckIfInsideRange()
+    {
+                // Iterar sobre todas las posiciones dentro del rango del edificio
+        foreach (var position in currRange.allPositionsWithin)
+        {
+            foreach (ResourceScript resource in GridBuildingSystem.instance.Enviroment)
+            {
+                // Verificar si la posición actual coincide con la posición del recurso
+                if (resource.area.position == position)
+                {
+                    if (resource.id == neededResourceId)
+                    {
+                        // El recurso está dentro del rango del edificio
+                        HasNeededResource = true;
+                        Debug.Log($"Building at {area.position} has the needed resource.");
+                        return;
+                    }
+                }
+                HasNeededResource = false;
+            }
+        }
+        
+    }
     private IEnumerator GenerateCurrency()
     {
         while (true)

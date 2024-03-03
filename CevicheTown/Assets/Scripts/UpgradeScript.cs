@@ -39,25 +39,13 @@ public class UpgradeScript : MonoBehaviour
             imageBuilding.sprite = selectedBuilding.GetComponentInChildren<SpriteRenderer>().sprite;
 
         }
-
         if (isUpgrading)
         {
-            
             UpgradeCanvas.gameObject.SetActive(true);
             selectedBuilding.Selected = true;
         }
-        if (isUpgrading && UpgradeCanvas.gameObject.activeSelf)
-        {
-            isUpgrading = false;
-        }
+        ClickedOtherwhere();
 
-    }
-    private void LateUpdate()
-    {
-        if (selectedBuilding != null)
-        {
-            ClickedOtherwhere();
-        }
     }
     public void UpgradeProduction() { 
     
@@ -76,14 +64,7 @@ public class UpgradeScript : MonoBehaviour
             if(!EventSystem.current.IsPointerOverGameObject())
             {
                 Upgradecanvasprefab.gameObject.SetActive(false);
-                Building[] AllBuildings = FindObjectsOfType<Building>();
-                foreach (Building b in AllBuildings)
-                {
-                    if (b.gameObject != selectedBuilding.gameObject)
-                    {
-                        b.Selected = false;
-                    }
-                }
+                isUpgrading = false;
             }
         }
         

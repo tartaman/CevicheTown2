@@ -43,7 +43,9 @@ public class GridBuildingSystem : MonoBehaviour
     public BoundsInt Currentrange;
     [SerializeField]
     public List<Building> placedBuildings;
-    
+    [SerializeField]
+    public List<ResourceScript> Enviroment;
+    BoundsInt range;
     #region Unity Method
     private void Awake()
     {
@@ -105,7 +107,7 @@ public class GridBuildingSystem : MonoBehaviour
                         {
                             //Movemos nuestro edificio temporal a la grid
                             temp.Place();
-                            temp.currRange = Currentrange;
+                            temp.currRange = range;
                             Destroy(previewBuilding);
                             temp.SetSortingOrder();
                             temp = null;
@@ -130,14 +132,6 @@ public class GridBuildingSystem : MonoBehaviour
                 isPlacing = false;
             }
         }
-        Building[] buildings = FindObjectsOfType<Building>();
-        foreach (Building building in buildings)
-        {
-            if (building != UpgradeScript.instance.selectedBuilding)
-            {
-                building.Selected = false;
-            }
-        }
     }
     #endregion
 
@@ -159,7 +153,7 @@ public class GridBuildingSystem : MonoBehaviour
         return array;
     }
     //Cambia los tiles de un área a otro especificandole que área, que tipo de tile y que tilemap vamos a modificar
-    private static void SetTilesBlock(BoundsInt area, tileTypes type, Tilemap tilemap)
+    public static void SetTilesBlock(BoundsInt area, tileTypes type, Tilemap tilemap)
     {
         int size = area.size.x * area.size.y * area.size.z;
         TileBase[] tileArray = new TileBase[size];
@@ -301,7 +295,7 @@ public class GridBuildingSystem : MonoBehaviour
             }
         }
         //El rango es rango veces el tamaño
-        BoundsInt range = prevArea;
+        range = prevArea;
         range.xMin -= previewBuilding.GetComponent<Building>().Range;
         range.yMin -= previewBuilding.GetComponent<Building>().Range;
         range.xMax += previewBuilding.GetComponent<Building>().Range;
