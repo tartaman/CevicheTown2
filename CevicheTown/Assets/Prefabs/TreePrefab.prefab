@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2648565328030728331}
   - component: {fileID: 4164869285731642887}
+  - component: {fileID: 6734999922044803571}
   m_Layer: 0
   m_Name: TreePrefab
   m_TagString: Untagged
@@ -90,6 +91,39 @@ PolygonCollider2D:
       - {x: -1.0901932, y: -1.9811285}
       - {x: -1.5782404, y: -0.40658957}
   m_UseDelaunayMesh: 0
+--- !u!114 &6734999922044803571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1420864745256394007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f0c3fcaabcc1424b84a4d724c395008, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  area:
+    m_Position: {x: 0, y: 0, z: 0}
+    m_Size: {x: 1, y: 1, z: 1}
+  ID: 3
+  cost: 0
+  buildingType: 2
+  generateDelay: 0
+  generateAmount: 0
+  selected: 0
+  selectedMaterial: {fileID: 2100000, guid: 52145c29549ab7640b43ac4220207c7c, type: 2}
+  selectedMaterialOverride: {fileID: 2100000, guid: 22cc67e5ce12e994dbd4c5df30b5f7ad, type: 2}
+  AcceptedTile: {fileID: 11400000, guid: 1faa9c02580266140a1599a70346c9c8, type: 2}
+  ProducedMaterialSprite: {fileID: 0}
+  range: 0
+  currRange:
+    m_Position: {x: 0, y: 0, z: 0}
+    m_Size: {x: 0, y: 0, z: 0}
+  withinRange: []
+  positionInGrid: {x: 0, y: 0, z: 0}
+  neededResource: {fileID: 0}
+  HasNeededResource: 0
 --- !u!1 &3409425384351031147
 GameObject:
   m_ObjectHideFlags: 0
@@ -116,7 +150,7 @@ Transform:
   m_GameObject: {fileID: 3409425384351031147}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.480835, y: -1.1816959, z: -2.0518093}
+  m_LocalPosition: {x: -2.480835, y: -1.1816959, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

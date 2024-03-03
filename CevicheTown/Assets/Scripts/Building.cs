@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -35,10 +36,17 @@ public class Building : MonoBehaviour
     [SerializeField]
     int range;
     public BoundsInt currRange;
-    public int Range {get { return range; }}
+    public int Range { get { return range; } }
     public List<Vector3Int> withinRange;
+    public Vector3Int positionInGrid;
+    [SerializeField]
+    public int neededResourceId;
+    [SerializeField]
+    public bool HasNeededResource;
+
     private void Start()
     {
+        HasNeededResource = false;
         selected = false;
         if (buildingType == TypeBuilding.Generative)
         {
@@ -55,7 +63,6 @@ public class Building : MonoBehaviour
     }
     private void Update()
     {
-
         if (Input.GetMouseButtonDown(1))
         {
             if (selected)
@@ -82,7 +89,9 @@ public class Building : MonoBehaviour
         }
         if (Placed)
         {
+            currRange.position = area.position;
             withinRange = GetCoordinatesWithinBounds(currRange);
+
         }
     }
 
@@ -148,6 +157,7 @@ public class Building : MonoBehaviour
         Placed = true;
         GridBuildingSystem.instance.TakeArea(areaTemp);
         ShopController.instance.currency -= cost;
+        GridBuildingSystem.instance.placedBuildings.Add(this);
     }
     public int SetSortingOrder()
     {
@@ -174,7 +184,7 @@ public class Building : MonoBehaviour
     {
         while (true)
         {
-            if (buildingType == TypeBuilding.Generative && Placed)
+            if (buildingType == TypeBuilding.Generative && Placed && HasNeededResource)
             {
                 // Store initial position
                 Vector3 initialPosition = transform.position;

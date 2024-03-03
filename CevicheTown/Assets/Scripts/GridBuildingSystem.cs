@@ -41,6 +41,9 @@ public class GridBuildingSystem : MonoBehaviour
     public bool isPlacing = false;
     [SerializeField]
     public BoundsInt Currentrange;
+    [SerializeField]
+    public List<Building> placedBuildings;
+    
     #region Unity Method
     private void Awake()
     {
@@ -48,6 +51,8 @@ public class GridBuildingSystem : MonoBehaviour
     }
     private void Start()
     {
+        
+        placedBuildings = new List<Building>();
         tileBases.Add(tileTypes.Empty, null);
         tileBases.Add(tileTypes.White, available);
         tileBases.Add(tileTypes.Green, Right);
