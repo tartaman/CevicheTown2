@@ -26,5 +26,8 @@ public class ShopController : MonoBehaviour
     {
         shopPanel.SetActive(!shopPanel.activeSelf);
         GridBuildingSystem.instance.isPlacing = !shopPanel.activeSelf;
+        UpgradeScript.instance.isUpgrading = false;
+        UpgradeScript.instance.Upgradecanvasprefab.gameObject.SetActive(false);
+        UpgradeScript.instance.selectedBuilding.Selected = false;
     }
 }

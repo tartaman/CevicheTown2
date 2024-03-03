@@ -12,7 +12,7 @@ public class UpgradeScript : MonoBehaviour
     [SerializeField]
     public Building selectedBuilding;
     [SerializeField]
-    Canvas Upgradecanvasprefab;
+    public Canvas Upgradecanvasprefab;
     [SerializeField]
     public bool isUpgrading;
     public Canvas UpgradeCanvas;

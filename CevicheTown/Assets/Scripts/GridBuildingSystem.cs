@@ -59,6 +59,7 @@ public class GridBuildingSystem : MonoBehaviour
         tileBases.Add(tileTypes.White, available);
         tileBases.Add(tileTypes.Green, Right);
         tileBases.Add(tileTypes.Red, Wrong);
+        
         // Crear el objeto de previsualización del edificio
         if (temp) { 
             previewBuilding = Instantiate(temp.gameObject);
@@ -71,6 +72,10 @@ public class GridBuildingSystem : MonoBehaviour
 
     private void Update()
     {
+        if(!tileBases.ContainsKey(tileTypes.Accepted)) 
+        {
+            tileBases.Add(tileTypes.Accepted, temp.AcceptedTile);
+        }
         if (temp)
         {
             CalculateRange();
@@ -119,6 +124,7 @@ public class GridBuildingSystem : MonoBehaviour
                         else
                         {
                             ClearArea();
+                            
                             Destroy(temp.gameObject);
                             Destroy(previewBuilding);
                             temp = null;
@@ -358,5 +364,6 @@ public enum tileTypes
     Empty,
     White,
     Green,
-    Red
+    Red,
+    Accepted
 }

@@ -9,14 +9,19 @@ public class ResourceScript : Building
     ResourcesDatabase database;
     [SerializeField]
     public int id;
-    int quantity;
+    public int quantity;
     private void Start()
     {
         quantity = 10;
     }
     private void Update()
     {
-
+        if (quantity == 0)
+        {
+            GridBuildingSystem.SetTilesBlock(area, tileTypes.Accepted, GridBuildingSystem.instance.maintilemap);
+            GridBuildingSystem.instance.Enviroment.Remove(this);
+            Destroy(gameObject);
+        }
     }
     public override void Place()
     {

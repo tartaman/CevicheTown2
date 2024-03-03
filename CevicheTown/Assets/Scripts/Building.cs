@@ -187,6 +187,10 @@ public class Building : MonoBehaviour
                     {
                         // El recurso está dentro del rango del edificio
                         HasNeededResource = true;
+                        if (!ResourcesInsideRange.Contains(resource))
+                        {
+                            ResourcesInsideRange.Add(resource);
+                        }
                         Debug.Log($"Building at {area.position} has the needed resource.");
                         return;
                     }
@@ -227,6 +231,14 @@ public class Building : MonoBehaviour
 
                 // Generate currency
                 ShopController.instance.currency += generateAmount;
+                foreach(var resource in ResourcesInsideRange)
+                {
+                    if (resource.quantity > 0)
+                    {
+                        resource.quantity--;
+                        break;
+                    }
+                }
             }
             else
             {
