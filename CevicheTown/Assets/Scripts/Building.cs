@@ -47,6 +47,7 @@ public class Building : MonoBehaviour
     private List<ResourceScript> ResourcesInsideRange;
     private void Start()
     {
+        
         HasNeededResource = false;
         selected = false;
         if (buildingType == TypeBuilding.Generative)
@@ -195,8 +196,8 @@ public class Building : MonoBehaviour
                         return;
                     }
                 }
-                HasNeededResource = false;
             }
+            HasNeededResource = false;
         }
         
     }
@@ -227,11 +228,9 @@ public class Building : MonoBehaviour
                 transform.position = initialPosition;
                 particle.Emit(generateAmount);
                 // Wait for generate delay
-                yield return new WaitForSeconds(generateDelay);
-
-                // Generate currency
-                ShopController.instance.currency += generateAmount;
-                foreach(var resource in ResourcesInsideRange)
+                // Generate Resource
+                InventoryManager1.instance.resources.resourcedata[neededResourceId].quantity += generateAmount;
+                foreach (var resource in ResourcesInsideRange)
                 {
                     if (resource.quantity > 0)
                     {
@@ -239,6 +238,7 @@ public class Building : MonoBehaviour
                         break;
                     }
                 }
+                yield return new WaitForSeconds(generateDelay);
             }
             else
             {

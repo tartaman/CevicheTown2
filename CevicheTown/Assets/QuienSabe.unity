@@ -31867,7 +31867,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 457532d38c312a84abc87c233fa02bfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resources: {fileID: 0}
+  resources: {fileID: 11400000, guid: 3b2a7b18da816334fa59d5dbd4d5c64a, type: 2}
 --- !u!4 &1074171896
 Transform:
   m_ObjectHideFlags: 0
@@ -38270,17 +38270,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6734999922044803571, guid: d2f7fde921670b4479966e26d8504297, type: 3}
-      propertyPath: id
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6734999922044803571, guid: d2f7fde921670b4479966e26d8504297, type: 3}
       propertyPath: database
       value: 
       objectReference: {fileID: 11400000, guid: 3b2a7b18da816334fa59d5dbd4d5c64a, type: 2}
-    - target: {fileID: 7481822992848802996, guid: d2f7fde921670b4479966e26d8504297, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

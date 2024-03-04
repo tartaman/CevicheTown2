@@ -9,9 +9,11 @@ public class ResourceScript : Building
     ResourcesDatabase database;
     [SerializeField]
     public int id;
+    public int producesId;
     public int quantity;
     private void Start()
     {
+
         quantity = 10;
     }
     private void Update()

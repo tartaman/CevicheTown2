@@ -75,7 +75,7 @@ public class GridBuildingSystem : MonoBehaviour
         if(!tileBases.ContainsKey(tileTypes.Accepted) && temp) 
         {
             tileBases.Add(tileTypes.Accepted, temp.AcceptedTile);
-        } else
+        } else if (tileBases.ContainsKey(tileTypes.Accepted))
         {
             tileBases[tileTypes.Accepted] = temp.AcceptedTile;
         }
@@ -127,7 +127,7 @@ public class GridBuildingSystem : MonoBehaviour
                         else
                         {
                             ClearArea();
-                            
+                            ResetRangeTiles(Currentrange);
                             Destroy(temp.gameObject);
                             Destroy(previewBuilding);
                             temp = null;

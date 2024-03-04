@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class InventoryManager1 : MonoBehaviour
 {
-    List<Building> buildings;
+    public static InventoryManager1 instance;
     [SerializeField]
-    ResourcesDatabase resources;
+    public ResourcesDatabase resources;
     // Start is called before the first frame update
     void Start()
     {
-        buildings = GridBuildingSystem.instance.placedBuildings;
+        instance = this;
     }
 
     // Update is called once per frame

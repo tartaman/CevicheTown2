@@ -122,8 +122,12 @@ MonoBehaviour:
     m_Size: {x: 0, y: 0, z: 0}
   withinRange: []
   positionInGrid: {x: 0, y: 0, z: 0}
-  neededResource: {fileID: 0}
+  neededResourceId: 0
   HasNeededResource: 0
+  ResourcesInsideRange: []
+  database: {fileID: 11400000, guid: 3b2a7b18da816334fa59d5dbd4d5c64a, type: 2}
+  id: 0
+  quantity: 0
 --- !u!1 &3409425384351031147
 GameObject:
   m_ObjectHideFlags: 0
