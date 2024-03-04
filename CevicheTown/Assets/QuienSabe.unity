@@ -31013,6 +31013,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 112952438}
     - target: {fileID: 5484402672460687896, guid: 86e5173a1e67d884ca90a3aeffc10020, type: 3}
+      propertyPath: neededResourceId
+      value: Wood
+      objectReference: {fileID: 0}
+    - target: {fileID: 5484402672460687896, guid: 86e5173a1e67d884ca90a3aeffc10020, type: 3}
       propertyPath: ProducedMaterialSprite
       value: 
       objectReference: {fileID: 21300000, guid: 9eeedd938ba600d4f969987de0eb1b6e, type: 3}

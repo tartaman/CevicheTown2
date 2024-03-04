@@ -40,7 +40,7 @@ public class Building : MonoBehaviour
     public List<Vector3Int> withinRange;
     public Vector3Int positionInGrid;
     [SerializeField]
-    public int neededResourceId;
+    public string neededResourceId;
     [SerializeField]
     public bool HasNeededResource;
     [SerializeField]
@@ -184,7 +184,7 @@ public class Building : MonoBehaviour
                 // Verificar si la posición actual coincide con la posición del recurso
                 if (resource.area.position == position)
                 {
-                    if (resource.id == neededResourceId)
+                    if (InventoryManager1.instance.resources.resourcedata.Find(x=> x.source.id == resource.id).Name == neededResourceId)
                     {
                         // El recurso está dentro del rango del edificio
                         HasNeededResource = true;
@@ -229,7 +229,7 @@ public class Building : MonoBehaviour
                 particle.Emit(generateAmount);
                 // Wait for generate delay
                 // Generate Resource
-                InventoryManager1.instance.resources.resourcedata[neededResourceId].quantity += generateAmount;
+                InventoryManager1.instance.resources.resourcedata.Find(x=> x.Name == neededResourceId).quantity += generateAmount;
                 foreach (var resource in ResourcesInsideRange)
                 {
                     if (resource.quantity > 0)

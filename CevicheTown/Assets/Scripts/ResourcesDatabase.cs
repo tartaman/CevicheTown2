@@ -19,7 +19,7 @@ public class Resourcedata
     [field: SerializeField]
     public int ID { get; private set; }
     [field: SerializeField]
-    public GameObject prefab { get; private set; } //Quiero que eso sea el sprite del recurso
+    public ResourceScript prefab { get; private set; } //Quiero que eso sea el sprite del recurso
 
     [field: SerializeField]
     public int quantity { get; set; }
