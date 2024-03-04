@@ -72,9 +72,12 @@ public class GridBuildingSystem : MonoBehaviour
 
     private void Update()
     {
-        if(!tileBases.ContainsKey(tileTypes.Accepted)) 
+        if(!tileBases.ContainsKey(tileTypes.Accepted) && temp) 
         {
             tileBases.Add(tileTypes.Accepted, temp.AcceptedTile);
+        } else
+        {
+            tileBases[tileTypes.Accepted] = temp.AcceptedTile;
         }
         if (temp)
         {
