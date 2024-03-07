@@ -11,38 +11,59 @@ using UnityEngine.Tilemaps;
 
 public class Building : MonoBehaviour
 {
+    //Encapsule el placed 
     public bool Placed { get; private set; }
+    // area de el building
     public BoundsInt area;
+    //orden en las layers
     int order = 1;
+    // id del edificio
     public int ID;
+    //costo de el edificio
     public float cost;
+    //tipo de el building (Ver el enum)
     public TypeBuilding buildingType;
+    //Cuanto tiempo tarda en dar un tick
     [SerializeField]
     public float generateDelay;
+    //Cantidad de recursos que genera
     [SerializeField]
     public int generateAmount;
+    //Si está seleccionado (Usado ppara que se ponga transparente [Ver CheckClick])
     [SerializeField]
     bool selected;
+    //Encampsulado de selected
     public bool Selected { get { return selected; } set { selected = value; } }
+    //Material de seleccionado
     [SerializeField]
     Material selectedMaterial;
+    //Material para cuando se quite el seleccionado
     [SerializeField]
     private Material selectedMaterialOverride;
+    //Tile sobre la que se puede poner
     [SerializeField]
     public TileBase AcceptedTile;
+    //Sprite de el material que produce
     [SerializeField]
     Sprite ProducedMaterialSprite;
+    //Particula para lo que va a generar
     ParticleSystem particle;
+    //Rango de el edificio
     [SerializeField]
     int range;
+    //Area del rando
     public BoundsInt currRange;
+    //Encapsulamiento del rango
     public int Range { get { return range; } }
+    //Cosas o recursos dentro del rango
     public List<Vector3Int> withinRange;
-    public Vector3Int positionInGrid;
+    //Identificador del recurso que genera, en este caso es el nombre en la base de datos
     [SerializeField]
     public string neededResourceId;
+    //booleano para saber si el recurso que necesita está dentro del rango
     [SerializeField]
     public bool HasNeededResource;
+    //Lista de los recursos dentro del rango
     [SerializeField]
     private List<ResourceScript> ResourcesInsideRange;
     private void Start()
@@ -184,7 +205,7 @@ public class Building : MonoBehaviour
                 // Verificar si la posición actual coincide con la posición del recurso
                 if (resource.area.position == position)
                 {
-                    if (InventoryManager1.instance.resources.resourcedata.Find(x=> x.source.id == resource.id).Name == neededResourceId)
+                    if (InventoryManager1.instance.resources.resourcedata.Find(x=> x.source.id == resource.producesId).Name == neededResourceId)
                     {
                         // El recurso está dentro del rango del edificio
                         HasNeededResource = true;
@@ -228,13 +249,13 @@ public class Building : MonoBehaviour
                 transform.position = initialPosition;
                 particle.Emit(generateAmount);
                 // Wait for generate delay
-                // Generate Resource
-                InventoryManager1.instance.resources.resourcedata.Find(x=> x.Name == neededResourceId).quantity += generateAmount;
                 foreach (var resource in ResourcesInsideRange)
                 {
                     if (resource.quantity > 0)
                     {
                         resource.quantity--;
+                        // Generate Resource
+                        InventoryManager1.instance.resources.resourcedata.Find(x => x.Name == neededResourceId).quantity += generateAmount;
                         break;
                     }
                 }

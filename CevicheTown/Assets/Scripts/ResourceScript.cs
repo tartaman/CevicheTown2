@@ -13,7 +13,7 @@ public class ResourceScript : Building
     public int quantity;
     private void Start()
     {
-
+        producesId = InventoryManager1.instance.resources.resourcedata.Find(x => x.source.id == id).ID;
         quantity = 10;
     }
     private void Update()
