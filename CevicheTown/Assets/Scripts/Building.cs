@@ -12,7 +12,7 @@ using UnityEngine.Tilemaps;
 public class Building : MonoBehaviour
 {
     //Encapsule el placed 
-    public bool Placed { get; private set; }
+    public bool Placed { get; set; }
     // area de el building
     public BoundsInt area;
     //orden en las layers

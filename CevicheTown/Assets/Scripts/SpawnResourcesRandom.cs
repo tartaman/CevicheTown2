@@ -5,7 +5,9 @@ public class SpawnResourcesRandom : MonoBehaviour
 {
     [SerializeField] GameObject[] ResourceGO;
     ResourceScript[] resourceScripts;
-
+    [SerializeField]
+    int StartNumberOfResources; 
+    
     void Start()
     {
         // Inicializa el array de resourceScripts con la longitud correcta
@@ -16,8 +18,10 @@ public class SpawnResourcesRandom : MonoBehaviour
         {
             resourceScripts[i] = ResourceGO[i].GetComponent<ResourceScript>();
         }
-
-        PlaceInitialResources();
+        while (StartNumberOfResources > 0)
+        {
+            PlaceInitialResources();
+        }
     }
 
     public  void PlaceInitialResources()
@@ -31,8 +35,7 @@ public class SpawnResourcesRandom : MonoBehaviour
         {
             for (int y = bounds.yMin; y < bounds.yMax; y++)
             {
-                Vector3Int tilePosition = new Vector3Int(x, y, 0);
-
+                Vector3Int tilePosition = new Vector3Int(Random.Range(bounds.xMin, bounds.xMax), Random.Range(bounds.yMin, bounds.yMax), 0);
                 // Verifica si hay un tile en la posición actual del Tilemap
                 if (tilemap.HasTile(tilePosition))
                 {
@@ -40,19 +43,28 @@ public class SpawnResourcesRandom : MonoBehaviour
                     GameObject randomResourceGO = GetRandomResourceGO();
                     Debug.Log($"mi random resource fue: {randomResourceGO}");
                     // Coloca el recurso aleatorio en la posición actual
-                    if (randomResourceGO != null)
+                    int rand = Random.Range(1, 11);
+                    Debug.Log(rand);
+                    if (randomResourceGO != null && rand == 1 && StartNumberOfResources > 0)//Dez percenche de probabilidade
                     {
-                        GameObject resourceGO = Instantiate(randomResourceGO, tilemap.GetCellCenterWorld(tilePosition), Quaternion.identity);
+                        GameObject resourceGO = Instantiate(randomResourceGO, tilemap.CellToLocal(tilePosition), Quaternion.identity);
                         ResourceScript resourceScriptInstance = resourceGO.GetComponent<ResourceScript>();
-                        resourceScriptInstance.Place();
+                        resourceScriptInstance.area.position = tilePosition;
 
+                        if (resourceScriptInstance.AcceptedTile == tilemap.GetTile(tilePosition))
+                        {
+                            resourceScriptInstance.SetSortingOrder();
+                            resourceScriptInstance.Place();
+                            StartNumberOfResources--;
+                        }
+                        else 
+                            Destroy(resourceGO);
                         
                     }
                 }
             }
         }
     }
-
     GameObject GetRandomResourceGO()
     {
         if (ResourceGO.Length > 0)

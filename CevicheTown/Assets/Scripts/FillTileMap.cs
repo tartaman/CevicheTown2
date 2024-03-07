@@ -9,8 +9,7 @@ public class FillTileMap : MonoBehaviour
     public TileBase[] tiles; // Array de tiles que deseas asignar
     public int width = 40;
     public int height = 40;
-
-    void Start()
+    private void Awake()
     {
         tilemap = GridBuildingSystem.instance.maintilemap;
         // Iterar sobre todas las posiciones dentro del rango
@@ -27,4 +26,5 @@ public class FillTileMap : MonoBehaviour
             }
         }
     }
+
 }

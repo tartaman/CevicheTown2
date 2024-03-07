@@ -40,7 +40,6 @@ public class ShopController : MonoBehaviour
             checador.SelledBuild = data.prefab;
             ToInsert.GetComponent<Image>().sprite = data.prefab.GetComponentInChildren<SpriteRenderer>().sprite;
             ShopList.Add(ToInsert);
-
         }
     }
     private void Update()
