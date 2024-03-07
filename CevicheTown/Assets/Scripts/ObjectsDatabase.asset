@@ -20,8 +20,8 @@ MonoBehaviour:
     <ID>k__BackingField: 1
     <prefab>k__BackingField: {fileID: 3683056607553216354, guid: d0d38ac02d30c144a9024ffb8f5e0c12, type: 3}
   - <Name>k__BackingField: Fabrica
-    <ID>k__BackingField: 1
+    <ID>k__BackingField: 2
     <prefab>k__BackingField: {fileID: 1061501774720856566, guid: 86e5173a1e67d884ca90a3aeffc10020, type: 3}
   - <Name>k__BackingField: TiendaFlores
-    <ID>k__BackingField: 1
+    <ID>k__BackingField: 3
     <prefab>k__BackingField: {fileID: 1034748570521031006, guid: ad66bad068756344fa9120d84a8379d0, type: 3}

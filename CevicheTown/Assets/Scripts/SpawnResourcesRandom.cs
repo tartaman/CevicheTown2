@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -6,8 +7,8 @@ public class SpawnResourcesRandom : MonoBehaviour
     [SerializeField] GameObject[] ResourceGO;
     ResourceScript[] resourceScripts;
     [SerializeField]
-    int StartNumberOfResources; 
-    
+    int StartNumberOfResources;
+    List<ResourceScript> primaryResources = new List<ResourceScript>();
     void Start()
     {
         // Inicializa el array de resourceScripts con la longitud correcta
@@ -23,7 +24,13 @@ public class SpawnResourcesRandom : MonoBehaviour
             PlaceInitialResources();
         }
     }
-
+    private void Update()
+    {
+        foreach (var resource in primaryResources) 
+        { 
+            resource.isPrimary = true;
+        }
+    }
     public  void PlaceInitialResources()
     {
         // Obtén el Tilemap
@@ -49,12 +56,14 @@ public class SpawnResourcesRandom : MonoBehaviour
                     {
                         GameObject resourceGO = Instantiate(randomResourceGO, tilemap.CellToLocal(tilePosition), Quaternion.identity);
                         ResourceScript resourceScriptInstance = resourceGO.GetComponent<ResourceScript>();
+                        resourceScriptInstance.isPrimary = true;
                         resourceScriptInstance.area.position = tilePosition;
 
                         if (resourceScriptInstance.AcceptedTile == tilemap.GetTile(tilePosition))
                         {
                             resourceScriptInstance.SetSortingOrder();
                             resourceScriptInstance.Place();
+                            primaryResources.Add(resourceScriptInstance);
                             StartNumberOfResources--;
                         }
                         else 

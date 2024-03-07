@@ -18,6 +18,7 @@ public class GridBuildingSystem : MonoBehaviour
     public Tilemap maintilemap;
     //Diccionario de tipos de tiles, tenemos un tipo y una base(Sprite)
     private static Dictionary<tileTypes, TileBase> tileBases = new Dictionary<tileTypes, TileBase>();
+    public Dictionary<tileTypes, TileBase> TileBases { get => tileBases; }
     //Un Building temporal junto con su posicion anterior y su area anterior
     public Building temp;
     private Vector3 prevPos;

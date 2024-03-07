@@ -115,7 +115,7 @@ MonoBehaviour:
   selectedMaterialOverride: {fileID: 2100000, guid: 22cc67e5ce12e994dbd4c5df30b5f7ad, type: 2}
   AcceptedTile: {fileID: 11400000, guid: 1faa9c02580266140a1599a70346c9c8, type: 2}
   ProducedMaterialSprite: {fileID: 0}
-  range: 0
+  range: 2
   currRange:
     m_Position: {x: 0, y: 0, z: 0}
     m_Size: {x: 0, y: 0, z: 0}
@@ -125,8 +125,10 @@ MonoBehaviour:
   ResourcesInsideRange: []
   database: {fileID: 11400000, guid: 3b2a7b18da816334fa59d5dbd4d5c64a, type: 2}
   id: 0
+  posTilesAround: []
   producesId: 0
   quantity: 0
+  isPrimary: 0
 --- !u!1 &3409425384351031147
 GameObject:
   m_ObjectHideFlags: 0
