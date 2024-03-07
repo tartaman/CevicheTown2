@@ -10,14 +10,24 @@ public class CheckPrice : MonoBehaviour
     GameObject selledBuild;
     [SerializeField]
     TextMeshProUGUI currencyText;
+
+    public GameObject SelledBuild { get => selledBuild; set => selledBuild = value; }
+    public TextMeshProUGUI CurrencyText { get => currencyText; set => currencyText = value; }
+    Image img;
+    TextMeshProUGUI text;
+    float currency;
     // Start is called before the first frame update
+    private void Start()
+    {
+        img = GetComponent<Image>();
+        currency = ShopController.instance.currency;
+        text = GetComponentInChildren<TextMeshProUGUI>();
+    }
     void Update()
     {
-        Image img = GetComponent<Image>();
-        int currency = int.Parse(currencyText.text);
-        TextMeshProUGUI text = GetComponentInChildren<TextMeshProUGUI>();
+        currency = ShopController.instance.currency;
         text.alignment = TextAlignmentOptions.Bottom;
-        float cost = selledBuild.GetComponent<Building>().cost;
+        float cost = SelledBuild.GetComponent<Building>().cost;
         text.text = cost.ToString();
         if (cost > currency)
         {

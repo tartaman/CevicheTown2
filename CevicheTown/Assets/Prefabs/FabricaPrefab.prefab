@@ -50,7 +50,6 @@ MonoBehaviour:
   area:
     m_Position: {x: 0, y: 0, z: 0}
     m_Size: {x: 3, y: 2, z: 1}
-  ID: 2
   cost: 50
   buildingType: 1
   generateDelay: 1
@@ -59,8 +58,15 @@ MonoBehaviour:
   selectedMaterial: {fileID: 2100000, guid: 52145c29549ab7640b43ac4220207c7c, type: 2}
   selectedMaterialOverride: {fileID: 2100000, guid: 22cc67e5ce12e994dbd4c5df30b5f7ad, type: 2}
   AcceptedTile: {fileID: 11400000, guid: 1faa9c02580266140a1599a70346c9c8, type: 2}
-  yatiene: 0
-  ProducedMaterialSprite: {fileID: 0}
+  ProducedMaterialSprite: {fileID: 21300000, guid: 9eeedd938ba600d4f969987de0eb1b6e, type: 3}
+  range: 2
+  currRange:
+    m_Position: {x: 0, y: 0, z: 0}
+    m_Size: {x: 0, y: 0, z: 0}
+  withinRange: []
+  neededResourceId: Wood
+  HasNeededResource: 0
+  ResourcesInsideRange: []
 --- !u!60 &8259982575316999137
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -237,14 +243,14 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2408368366590383692}
   serializedVersion: 8
-  lengthInSec: 5
+  lengthInSec: 1
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -365,7 +371,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 3
+      scalar: 2
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -483,7 +489,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 2
       minScalar: 1
       maxCurve:
         serializedVersion: 2

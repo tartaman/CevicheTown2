@@ -17,8 +17,6 @@ public class Building : MonoBehaviour
     public BoundsInt area;
     //orden en las layers
     int order = 1;
-    // id del edificio
-    public int ID;
     //costo de el edificio
     public float cost;
     //tipo de el building (Ver el enum)

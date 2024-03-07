@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -17,21 +18,18 @@ public class InventoryManager1 : MonoBehaviour
     [SerializeField]
     GameObject PrefabToInsert;
     //lista para actualizar y no matar el programa xd
-    List<GameObject> InventoryList = new List<GameObject>();
+    [SerializeField]
+    List<ResourceInInventory> InventoryList = new List<ResourceInInventory>();
     // Start is called before the first frame update
     void Start()
     {
         instance = this;
         foreach (var data in resources.resourcedata)
         {
-            GameObject ToInsert = Instantiate(PrefabToInsert);
-            TextMeshProUGUI[] texts = ToInsert.GetComponentsInChildren<TextMeshProUGUI>();
-            // Nombre
-            texts[0].text = data.Name;
-            texts[1].text = data.quantity.ToString();
-            InventoryList.Add(ToInsert);
-            ToInsert.transform.SetParent(InventoryContent.transform,false);
+            InventoryList.Add(new ResourceInInventory(Instantiate(PrefabToInsert,InventoryContent.transform), data));
+            Debug.Log("Añadi un resource");
         }
+
         InventoryCanvas.gameObject.SetActive(false);
     }
 
@@ -45,14 +43,12 @@ public class InventoryManager1 : MonoBehaviour
             foreach (var data in resources.resourcedata)
             {
                 //recorro la lista de los game objects que cree para editarlos
-                foreach (var GO in InventoryList)
+                foreach (var resource in InventoryList)
                 {
-                    //Obtengoi el texto en ñps game objects
-                    TextMeshProUGUI[] texts = GO.GetComponentsInChildren<TextMeshProUGUI>();
-                    if (texts[0].text == data.Name)
+                    if (resource.Name == data.Name)
                     {
-                        //Set the text
-                        texts[1].text = data.quantity.ToString();
+                        //Set the text(Aqui tuve que usar text por que es la referencia al objeto lo que quiero cambiar)
+                        resource.Texts[1].text = data.quantity.ToString();
                     }
                 }
             }
@@ -67,5 +63,49 @@ public class InventoryManager1 : MonoBehaviour
         {
             InventoryCanvas.gameObject.SetActive(true);
         }
+    }
+    
+}
+
+public class ResourceInInventory
+{
+    GameObject prefab;
+    TextMeshProUGUI[] texts;
+    Button botonVenta;
+    int pricePerUnit;
+    Resourcedata data;
+    public ResourceInInventory(GameObject prefabR, Resourcedata data)
+    {
+        this.data = data;
+        Prefab = prefabR;
+        
+        //Texts 0 es el nombre y texts 1 es la cantidad
+        Texts = prefab.GetComponentsInChildren<TextMeshProUGUI>();
+        //Le pongo el texto a las textmeshprougui
+        SetDatos();
+        Name = Texts[0].text;
+        QuantityText = Texts[1].text;
+        Quantity = int.Parse(QuantityText);
+        BotonVenta = prefab.GetComponentInChildren<Button>();
+        BotonVenta.onClick.AddListener(SellQuantityPrice);
+        
+    }
+
+    public GameObject Prefab { get => prefab; set => prefab = value; }
+    public TextMeshProUGUI[] Texts { get => texts; set => texts = value; }
+    public Button BotonVenta { get => botonVenta; set => botonVenta = value; }
+    public int PricePerUnit { get => pricePerUnit; set => pricePerUnit = value; }
+    public string Name { get; set; }
+    public string QuantityText { get; set; }
+    public int Quantity { get; set; }
+
+    public static void SellQuantityPrice()
+    {
+        throw new NotImplementedException();
+    }
+    public void SetDatos()
+    {
+        Texts[0].text = data.Name;
+        Texts[1].text = data.quantity.ToString();
     }
 }

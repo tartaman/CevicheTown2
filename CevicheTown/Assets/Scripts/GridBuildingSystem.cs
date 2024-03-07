@@ -19,7 +19,7 @@ public class GridBuildingSystem : MonoBehaviour
     //Diccionario de tipos de tiles, tenemos un tipo y una base(Sprite)
     private static Dictionary<tileTypes, TileBase> tileBases = new Dictionary<tileTypes, TileBase>();
     //Un Building temporal junto con su posicion anterior y su area anterior
-    private Building temp;
+    public Building temp;
     private Vector3 prevPos;
     private BoundsInt prevArea;
     //Los sprites de las tilebases
@@ -28,14 +28,14 @@ public class GridBuildingSystem : MonoBehaviour
     [SerializeField] TileBase Wrong;
     //Materiales para la transparencia y color
     [SerializeField]
-    Material Transparency;
+    public Material Transparency;
     [SerializeField]
     Material TransparencyRight;
     [SerializeField]
     Material TransparencyWrong;
     //Boton de la tienda
     [SerializeField]
-    UnityEngine.UI.Button boton;
+    public UnityEngine.UI.Button boton;
     // Objeto de previsualización del edificio
     public GameObject previewBuilding;
     public bool isPlacing = false;
@@ -72,10 +72,10 @@ public class GridBuildingSystem : MonoBehaviour
 
     private void Update()
     {
-        if(!tileBases.ContainsKey(tileTypes.Accepted) && temp) 
+        if(!tileBases.ContainsKey(tileTypes.Accepted) && temp != null) 
         {
             tileBases.Add(tileTypes.Accepted, temp.AcceptedTile);
-        } else if (tileBases.ContainsKey(tileTypes.Accepted))
+        } else if (tileBases.ContainsKey(tileTypes.Accepted) && temp != null)
         {
             tileBases[tileTypes.Accepted] = temp.AcceptedTile;
         }
@@ -218,7 +218,7 @@ public class GridBuildingSystem : MonoBehaviour
     }
 
     //Basicament checamos las tiles debajo del edificio y las ponemos verdes o rojas si está correcto o no, respectivamente
-    private void FollowBuilding()
+    public void FollowBuilding()
     {
         //Limpiamos el area (Las casillas donde antes estaba el edificio
         ClearArea();
