@@ -80,7 +80,6 @@ public class Building : MonoBehaviour
         {
             particle = null;
         }
-        
     }
     private void Update()
     {
@@ -220,7 +219,7 @@ public class Building : MonoBehaviour
         }
         
     }
-    private IEnumerator GenerateCurrency()
+        private IEnumerator GenerateCurrency()
     {
         while (true)
         {
