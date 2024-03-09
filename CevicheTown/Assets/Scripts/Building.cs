@@ -115,6 +115,17 @@ public class Building : MonoBehaviour
             {
                 GridBuildingSystem.SetTilesBlock(currRange, tileTypes.Empty, GridBuildingSystem.instance.temptilemap);
             }
+            for (int i = 0; i < ResourcesInsideRange.Count; i++)
+            {
+                if (ResourcesInsideRange[i] == null)
+                {
+                    ResourcesInsideRange.RemoveAt(i);
+                }
+            }
+            if (ResourcesInsideRange.Count == 0)
+            {
+                HasNeededResource = false;
+            }
         }
     }
 
@@ -211,15 +222,17 @@ public class Building : MonoBehaviour
                             ResourcesInsideRange.Add(resource);
                         }
                         Debug.Log($"Building at {area.position} has the needed resource.");
-                        return;
+                        
+                    } else
+                    {
+                        HasNeededResource = false;
+                        ResourcesInsideRange.Clear();
                     }
                 }
             }
-            HasNeededResource = false;
         }
-        
     }
-        private IEnumerator GenerateCurrency()
+    private IEnumerator GenerateCurrency()
     {
         while (true)
         {
