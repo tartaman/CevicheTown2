@@ -14,15 +14,20 @@ public class ResourceScript : Building
     public int producesId;
     public int quantity;
     public bool isPrimary;
+    private bool isCoroutineRunning = false;
+    [SerializeField]
+    List<Vector3Int> alreadyPlaced;
     private void Start()
     {
         posTilesAround = new List<Vector3Int>();
         producesId = InventoryManager1.instance.resources.resourcedata.Find(x => x.source.id == id).ID;
         quantity = 10;
         isPrimary = false;
+        StartCoroutine(GenerateTreesAround());
     }
     private void Update()
     {
+        
         if (quantity == 0)
         {
             GridBuildingSystem.SetTilesBlock(area, tileTypes.Accepted, GridBuildingSystem.instance.maintilemap);
@@ -32,9 +37,10 @@ public class ResourceScript : Building
         if (isPrimary)
         {
             posTilesAround = GetTilesAround();
-            foreach (var tile in posTilesAround)
+            if (!isCoroutineRunning)
             {
-                GridBuildingSystem.instance.maintilemap.SetTile(tile, GridBuildingSystem.instance.TileBases[tileTypes.White]);
+                StartCoroutine(GenerateTreesAround());
+                isCoroutineRunning = true;
             }
         }
     }
@@ -52,6 +58,7 @@ public class ResourceScript : Building
         {
             GridBuildingSystem.instance.Enviroment.Add(this);
         }
+        
     }
 
     public List<Vector3Int> GetTilesAround()
@@ -70,5 +77,42 @@ public class ResourceScript : Building
             }
         }
         return posTilesAround;
+    }
+    public IEnumerator GenerateTreesAround()
+    {
+        foreach (var tile in posTilesAround)
+        {
+            if (isPrimary)
+            {
+                Vector3Int randomPos;
+                do
+                {
+                  randomPos = posTilesAround[Random.Range(0, posTilesAround.Count)];
+                } while (alreadyPlaced.Contains(randomPos));
+
+                if (AcceptedTile == GridBuildingSystem.instance.maintilemap.GetTile(randomPos))
+                {
+                    GameObject resourceGO = Instantiate(gameObject, GridBuildingSystem.instance.maintilemap.CellToLocal(randomPos), Quaternion.identity);
+                    ResourceScript resourceScriptInstance = resourceGO.GetComponent<ResourceScript>();
+                    resourceScriptInstance.isPrimary = false;
+                    resourceScriptInstance.area.position = randomPos;
+                    resourceScriptInstance.SetSortingOrder();
+                    resourceScriptInstance.Place();
+                    GridBuildingSystem.instance.Enviroment.Add(resourceScriptInstance);
+                    Debug.Log($"Voy a generar un arbol en {randomPos}");
+                    yield return new WaitForSeconds(1f);
+                    alreadyPlaced.Add(randomPos);
+                } else
+                {
+                    GenerateTreesAround();
+                }
+                
+            }
+            else
+            {
+                yield return null;
+            }
+        }
+        
     }
 }
