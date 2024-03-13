@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
 public class InventoryManager1 : MonoBehaviour
@@ -72,7 +73,7 @@ public class ResourceInInventory
     GameObject prefab;
     TextMeshProUGUI[] texts;
     Button botonVenta;
-    int pricePerUnit;
+    float pricePerUnit;
     Resourcedata data;
     public ResourceInInventory(GameObject prefabR, Resourcedata data)
     {
@@ -86,6 +87,7 @@ public class ResourceInInventory
         Name = Texts[0].text;
         QuantityText = Texts[1].text;
         Quantity = int.Parse(QuantityText);
+        PricePerUnit = data.ValuePerUnit;
         BotonVenta = prefab.GetComponentInChildren<Button>();
         BotonVenta.onClick.AddListener(SellQuantityPrice);
         
@@ -94,18 +96,18 @@ public class ResourceInInventory
     public GameObject Prefab { get => prefab; set => prefab = value; }
     public TextMeshProUGUI[] Texts { get => texts; set => texts = value; }
     public Button BotonVenta { get => botonVenta; set => botonVenta = value; }
-    public int PricePerUnit { get => pricePerUnit; set => pricePerUnit = value; }
+    public float PricePerUnit { get => pricePerUnit; set => pricePerUnit = value; }
     public string Name { get; set; }
     public string QuantityText { get; set; }
     public int Quantity { get; set; }
-
-    public static void SellQuantityPrice()
+    public void SellQuantityPrice()
     {
-        throw new NotImplementedException();
+        prefab.GetComponentsInChildren<TextMeshProUGUI>()[1].text = "0";
     }
     public void SetDatos()
     {
         Texts[0].text = data.Name;
         Texts[1].text = data.quantity.ToString();
+        Texts[2].text = data.ValuePerUnit.ToString();
     }
 }
