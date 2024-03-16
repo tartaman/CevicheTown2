@@ -13,7 +13,9 @@ public class InventoryManager1 : MonoBehaviour
     [SerializeField]
     public ResourcesDatabase resources;
     [SerializeField]
-    Canvas InventoryCanvas;
+    GameObject InventoryCanvas;
+
+
     [SerializeField]
     GameObject InventoryContent;
     [SerializeField]
@@ -22,6 +24,7 @@ public class InventoryManager1 : MonoBehaviour
     [SerializeField]
     List<ResourceInInventory> InventoryList = new List<ResourceInInventory>();
     // Start is called before the first frame update
+    
     void Start()
     {
         instance = this;
@@ -30,6 +33,7 @@ public class InventoryManager1 : MonoBehaviour
             InventoryList.Add(new ResourceInInventory(Instantiate(PrefabToInsert,InventoryContent.transform), data));
             Debug.Log("Añadi un resource");
         }
+        //InventoryContent.GetComponent<RectTransform>().anchorMin = Vector3.zero;
 
         InventoryCanvas.gameObject.SetActive(false);
     }
@@ -66,7 +70,12 @@ public class InventoryManager1 : MonoBehaviour
         }
     }
     
-}
+
+
+
+
+    }
+
 
 public class ResourceInInventory
 {
@@ -79,6 +88,20 @@ public class ResourceInInventory
     {
         this.data = data;
         Prefab = prefabR;
+
+        
+        //Cambiar el máximo valor del recurso de acuerdo con la capacidad de los inventarios
+        Slider slider = prefab.GetComponentInChildren<Slider>();
+        Debug.Log(slider);
+        slider.maxValue = data.MaxQuantity;
+
+        
+        // Cambiar el color de la slider al color característico del recurso
+        slider.gameObject.transform.GetChild(1).GetChild(0).GetComponent<Image>().color = data.colorRecurso;
+
+        //Poner la imagen del recurso
+        prefab.transform.GetChild(2).GetComponent<Image>().sprite = data.sprite;
+        
         
         //Texts 0 es el nombre y texts 1 es la cantidad
         Texts = prefab.GetComponentsInChildren<TextMeshProUGUI>();
@@ -88,8 +111,8 @@ public class ResourceInInventory
         QuantityText = Texts[1].text;
         Quantity = int.Parse(QuantityText);
         PricePerUnit = data.ValuePerUnit;
-        BotonVenta = prefab.GetComponentInChildren<Button>();
-        BotonVenta.onClick.AddListener(SellQuantityPrice);
+        //BotonVenta = prefab.GetComponentInChildren<Button>();
+        //BotonVenta.onClick.AddListener(SellQuantityPrice);
         
     }
 
@@ -108,6 +131,6 @@ public class ResourceInInventory
     {
         Texts[0].text = data.Name;
         Texts[1].text = data.quantity.ToString();
-        Texts[2].text = data.ValuePerUnit.ToString();
+        //Texts[2].text = data.ValuePerUnit.ToString();
     }
 }
