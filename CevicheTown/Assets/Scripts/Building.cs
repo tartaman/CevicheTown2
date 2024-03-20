@@ -11,6 +11,8 @@ using UnityEngine.Tilemaps;
 
 public class Building : MonoBehaviour
 {
+    [SerializeField]
+    ResourcesDatabase database;
     //Encapsule el placed 
     public bool Placed { get; set; }
     // area de el building
@@ -66,7 +68,7 @@ public class Building : MonoBehaviour
     private List<ResourceScript> ResourcesInsideRange;
     private void Start()
     {
-        
+        ProducedMaterialSprite = database.resourcedata.Find(x => x.Name == neededResourceId).sprite;
         HasNeededResource = false;
         selected = false;
         if (buildingType == TypeBuilding.Generative)
