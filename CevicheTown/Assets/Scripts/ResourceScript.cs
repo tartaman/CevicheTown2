@@ -7,8 +7,6 @@ using UnityEngine.Tilemaps;
 public class ResourceScript : Building
 {
     [SerializeField]
-    ResourcesDatabase database;
-    [SerializeField]
     public int id;
     [SerializeField]
     List<Vector3Int> posTilesAround;
