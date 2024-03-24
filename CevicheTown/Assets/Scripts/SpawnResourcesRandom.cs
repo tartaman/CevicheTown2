@@ -4,6 +4,8 @@ using UnityEngine.Tilemaps;
 
 public class SpawnResourcesRandom : MonoBehaviour
 {
+    [SerializeField]
+    ResourcesDatabase database;
     [SerializeField] GameObject[] ResourceGO;
     ResourceScript[] resourceScripts;
     [SerializeField]
@@ -52,6 +54,12 @@ public class SpawnResourcesRandom : MonoBehaviour
                     // Coloca el recurso aleatorio en la posición actual
                     int rand = Random.Range(1, 11);
                     Debug.Log(rand);
+                    foreach (var resource in database.resourcedata) 
+                    {
+                        Debug.Log($"{resource.Name}");
+                        //Aqui se pondria un place como los de abajo con cada uno de los recursos para que pueda tener un recurso de cada
+                        //uno que sea necesario para progresar
+                    }
                     if (randomResourceGO != null && rand == 1 && StartNumberOfResources > 0)//Dez percenche de probabilidade
                     {
                         GameObject resourceGO = Instantiate(randomResourceGO, tilemap.CellToLocal(tilePosition), Quaternion.identity);

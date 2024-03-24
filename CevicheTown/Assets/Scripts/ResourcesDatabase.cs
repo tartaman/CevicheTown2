@@ -7,8 +7,6 @@ using UnityEngine;
 public class ResourcesDatabase : ScriptableObject
 {
     public List<Resourcedata> resourcedata;
-
-    
 }
 
 [Serializable]
