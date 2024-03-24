@@ -56,10 +56,19 @@ public class SpawnResourcesRandom : MonoBehaviour
                     {
                         GameObject resourceGO = Instantiate(randomResourceGO, tilemap.CellToLocal(tilePosition), Quaternion.identity);
                         ResourceScript resourceScriptInstance = resourceGO.GetComponent<ResourceScript>();
+                        resourceScriptInstance.area.position = tilePosition;
                         resourceScriptInstance.isPrimary = true;
                         resourceScriptInstance.area.position = tilePosition;
+                        bool hasAllAcceptedTiles = true;
+                        foreach (var tile in tilemap.GetTilesBlock(resourceScriptInstance.area))
+                        {
+                            if (tile != resourceScriptInstance.AcceptedTile)
+                            {
+                                hasAllAcceptedTiles = false;
+                            }
+                        }
 
-                        if (resourceScriptInstance.AcceptedTile == tilemap.GetTile(tilePosition))
+                        if (hasAllAcceptedTiles)
                         {
                             resourceScriptInstance.SetSortingOrder();
                             resourceScriptInstance.Place();

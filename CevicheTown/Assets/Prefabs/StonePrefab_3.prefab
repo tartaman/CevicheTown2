@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 49e865874cb5d174e8ca011f83db1748, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7585a9ce1cac99540a46f1713956a254, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 1679267264666306934}
   - component: {fileID: 7771291555679854499}
   m_Layer: 0
-  m_Name: StonePrefab
+  m_Name: StonePrefab_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -133,7 +133,7 @@ MonoBehaviour:
   database: {fileID: 11400000, guid: 3b2a7b18da816334fa59d5dbd4d5c64a, type: 2}
   area:
     m_Position: {x: 0, y: 0, z: 0}
-    m_Size: {x: 2, y: 2, z: 1}
+    m_Size: {x: 3, y: 4, z: 1}
   cost: 0
   buildingType: 2
   generateDelay: 0
@@ -201,12 +201,13 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 1.7796631, y: 1.0969372}
-      - {x: 1.314209, y: 2.158739}
-      - {x: -0.11859131, y: 2.9145412}
-      - {x: -1.6758423, y: 2.5582447}
-      - {x: -2.52674, y: 1.8847005}
-      - {x: -2.1973433, y: 0.74972355}
-      - {x: -0.31016386, y: 0.17366815}
-      - {x: 0.9510565, y: 0.30901712}
+    - - {x: 0.6416626, y: 0.10331154}
+      - {x: 0.5083008, y: 0.30716324}
+      - {x: 0.07324219, y: 0.6600342}
+      - {x: -0.3807373, y: 0.6395149}
+      - {x: -0.8766546, y: 0.47443366}
+      - {x: -1.0653243, y: 0.13573086}
+      - {x: -0.83862305, y: -0.32188988}
+      - {x: -0.021406531, y: -0.4887483}
+      - {x: 0.6198187, y: -0.09013182}
   m_UseDelaunayMesh: 0
