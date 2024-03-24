@@ -9,7 +9,7 @@ public class ResourceScript : Building
     [SerializeField]
     public int id;
     [SerializeField]
-    List<Vector3Int> posTilesAround;
+    public List<Vector3Int> posTilesAround;
     public int producesId;
     public int quantity;
     public bool isPrimary;

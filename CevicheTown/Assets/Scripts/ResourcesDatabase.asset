@@ -27,7 +27,16 @@ MonoBehaviour:
     <prefab>k__BackingField: {fileID: 0}
     <sprite>k__BackingField: {fileID: 21300000, guid: 3148c799ec6aa4649ab300f494806044, type: 3}
     <ValuePerUnit>k__BackingField: 2
-    <quantity>k__BackingField: 110
+    <quantity>k__BackingField: 179
     <source>k__BackingField: {fileID: 1679267264666306934, guid: 1bf8a7389aa2c5548a57b20513074d27, type: 3}
     <MaxQuantity>k__BackingField: 500
     <colorRecurso>k__BackingField: {r: 0, g: 0, b: 0, a: 1}
+  - <Name>k__BackingField: Water
+    <ID>k__BackingField: 2
+    <prefab>k__BackingField: {fileID: 0}
+    <sprite>k__BackingField: {fileID: 21300000, guid: 3148c799ec6aa4649ab300f494806044, type: 3}
+    <ValuePerUnit>k__BackingField: 2
+    <quantity>k__BackingField: 167
+    <source>k__BackingField: {fileID: 1679267264666306934, guid: 1bf8a7389aa2c5548a57b20513074d27, type: 3}
+    <MaxQuantity>k__BackingField: 500
+    <colorRecurso>k__BackingField: {r: 0.47358483, g: 0.8298685, b: 1, a: 1}

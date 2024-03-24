@@ -2758,6 +2758,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ResourceGO:
   - {fileID: 1420864745256394007, guid: d2f7fde921670b4479966e26d8504297, type: 3}
+  - {fileID: 1420864745256394007, guid: f88b99e8f6f11d543a00125f2719975c, type: 3}
+  - {fileID: 1420864745256394007, guid: 2c1abb85b0fce854cb4e0411d0779f80, type: 3}
   - {fileID: 4276069678019825355, guid: 1bf8a7389aa2c5548a57b20513074d27, type: 3}
   - {fileID: 4276069678019825355, guid: 134e5967ca4119547aa8ad0022a8a1d7, type: 3}
   - {fileID: 4276069678019825355, guid: df034c0f2f67bfb4581d9aaf54896b28, type: 3}
@@ -3573,7 +3575,7 @@ MonoBehaviour:
         m_MethodName: InitializeWithBuilding
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 4276069678019825355, guid: df034c0f2f67bfb4581d9aaf54896b28, type: 3}
+          m_ObjectArgument: {fileID: 1420864745256394007, guid: 2c1abb85b0fce854cb4e0411d0779f80, type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0

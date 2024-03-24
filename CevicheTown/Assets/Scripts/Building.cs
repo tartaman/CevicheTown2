@@ -212,23 +212,26 @@ public class Building : MonoBehaviour
         {
             foreach (ResourceScript resource in GridBuildingSystem.instance.Enviroment)
             {
-                // Verificar si la posición actual coincide con la posición del recurso
-                if (resource.area.position == position)
+                foreach (var RePos in resource.posTilesAround)
                 {
-                    if (InventoryManager1.instance.resources.resourcedata.Find(x=> x.source.id == resource.producesId).Name == neededResourceId)
+                    // Verificar si la posición actual coincide con la posición del recurso
+                    if (RePos == position)
                     {
-                        // El recurso está dentro del rango del edificio
-                        HasNeededResource = true;
-                        if (!ResourcesInsideRange.Contains(resource))
+                        if (InventoryManager1.instance.resources.resourcedata.Find(x=> x.source.id == resource.producesId).Name == neededResourceId)
                         {
-                            ResourcesInsideRange.Add(resource);
-                        }
-                        Debug.Log($"Building at {area.position} has the needed resource.");
+                            // El recurso está dentro del rango del edificio
+                            HasNeededResource = true;
+                            if (!ResourcesInsideRange.Contains(resource))
+                            {
+                                ResourcesInsideRange.Add(resource);
+                            }
+                            Debug.Log($"Building at {area.position} has the needed resource.");
                         
-                    } else
-                    {
-                        HasNeededResource = false;
-                        ResourcesInsideRange.Clear();
+                        } else
+                        {
+                            HasNeededResource = false;
+                            ResourcesInsideRange.Clear();
+                        }
                     }
                 }
             }
