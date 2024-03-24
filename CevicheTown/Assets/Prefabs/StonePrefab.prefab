@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 5871fd4dcd706be478a529beed700bfb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 49e865874cb5d174e8ca011f83db1748, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -93,8 +93,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5270366820291851373}
-  - component: {fileID: 712775132985530453}
   - component: {fileID: 1679267264666306934}
+  - component: {fileID: 7771291555679854499}
   m_Layer: 0
   m_Name: StonePrefab
   m_TagString: Untagged
@@ -118,7 +118,46 @@ Transform:
   - {fileID: 1779783388983795401}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!60 &712775132985530453
+--- !u!114 &1679267264666306934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4276069678019825355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f0c3fcaabcc1424b84a4d724c395008, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  database: {fileID: 11400000, guid: 3b2a7b18da816334fa59d5dbd4d5c64a, type: 2}
+  area:
+    m_Position: {x: 0, y: 0, z: 0}
+    m_Size: {x: 2, y: 2, z: 1}
+  cost: 0
+  buildingType: 2
+  generateDelay: 0
+  generateAmount: 0
+  selected: 0
+  selectedMaterial: {fileID: 2100000, guid: 52145c29549ab7640b43ac4220207c7c, type: 2}
+  selectedMaterialOverride: {fileID: 2100000, guid: 22cc67e5ce12e994dbd4c5df30b5f7ad, type: 2}
+  AcceptedTile: {fileID: 11400000, guid: 1faa9c02580266140a1599a70346c9c8, type: 2}
+  ProducedMaterialSprite: {fileID: 0}
+  range: 0
+  currRange:
+    m_Position: {x: 0, y: 0, z: 0}
+    m_Size: {x: 0, y: 0, z: 0}
+  withinRange: []
+  neededResourceId: 0
+  HasNeededResource: 0
+  ResourcesInsideRange: []
+  id: 1
+  posTilesAround: []
+  producesId: 0
+  quantity: 0
+  isPrimary: 0
+  alreadyPlaced: []
+--- !u!60 &7771291555679854499
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -162,52 +201,12 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -2.430603, y: 0.4818039}
-      - {x: -2.9053345, y: -0.031414032}
-      - {x: -3.6134644, y: -1.1938019}
-      - {x: -3.7024603, y: -2.1339133}
-      - {x: -3.0136719, y: -2.2587147}
-      - {x: -2.6591797, y: -2.4653492}
-      - {x: -2.6729126, y: -2.783102}
-      - {x: -2.2040572, y: -2.8077793}
-      - {x: -2.2456055, y: -2.3453484}
-      - {x: -1.3526001, y: -2.245964}
-      - {x: -1.0901932, y: -1.9811285}
-      - {x: -1.5782404, y: -0.40658957}
+    - - {x: 1.7796631, y: 1.0969372}
+      - {x: 1.314209, y: 2.158739}
+      - {x: -0.11859131, y: 2.9145412}
+      - {x: -1.6758423, y: 2.5582447}
+      - {x: -2.52674, y: 1.8847005}
+      - {x: -2.1973433, y: 0.74972355}
+      - {x: -0.31016386, y: 0.17366815}
+      - {x: 0.9510565, y: 0.30901712}
   m_UseDelaunayMesh: 0
---- !u!114 &1679267264666306934
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4276069678019825355}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f0c3fcaabcc1424b84a4d724c395008, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  area:
-    m_Position: {x: 0, y: 0, z: 0}
-    m_Size: {x: 1, y: 1, z: 1}
-  cost: 0
-  buildingType: 2
-  generateDelay: 0
-  generateAmount: 0
-  selected: 0
-  selectedMaterial: {fileID: 2100000, guid: 52145c29549ab7640b43ac4220207c7c, type: 2}
-  selectedMaterialOverride: {fileID: 2100000, guid: 22cc67e5ce12e994dbd4c5df30b5f7ad, type: 2}
-  AcceptedTile: {fileID: 11400000, guid: 1faa9c02580266140a1599a70346c9c8, type: 2}
-  ProducedMaterialSprite: {fileID: 0}
-  range: 0
-  currRange:
-    m_Position: {x: 0, y: 0, z: 0}
-    m_Size: {x: 0, y: 0, z: 0}
-  withinRange: []
-  neededResourceId: 0
-  HasNeededResource: 0
-  ResourcesInsideRange: []
-  database: {fileID: 11400000, guid: 3b2a7b18da816334fa59d5dbd4d5c64a, type: 2}
-  id: 1
-  producesId: 0
-  quantity: 0
