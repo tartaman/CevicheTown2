@@ -2756,6 +2756,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8670915ebf9482442b527d4b54c8d9e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  database: {fileID: 11400000, guid: 3b2a7b18da816334fa59d5dbd4d5c64a, type: 2}
   ResourceGO:
   - {fileID: 1420864745256394007, guid: d2f7fde921670b4479966e26d8504297, type: 3}
   - {fileID: 1420864745256394007, guid: f88b99e8f6f11d543a00125f2719975c, type: 3}
