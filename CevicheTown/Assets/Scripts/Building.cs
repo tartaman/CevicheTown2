@@ -31,7 +31,7 @@ public class Building : MonoBehaviour
     public int generateAmount;
     //Si está seleccionado (Usado ppara que se ponga transparente [Ver CheckClick])
     [SerializeField]
-    bool selected;
+    public bool selected;
     //Encampsulado de selected
     public bool Selected { get { return selected; } set { selected = value; } }
     //Material de seleccionado
@@ -131,7 +131,7 @@ public class Building : MonoBehaviour
         }
     }
 
-    private void CheckMouseClick()
+    public virtual void CheckMouseClick()
     {
         // Raycast from the mouse position
         RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
