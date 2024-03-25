@@ -25,3 +25,6 @@ MonoBehaviour:
   - <Name>k__BackingField: TiendaFlores
     <ID>k__BackingField: 3
     <prefab>k__BackingField: {fileID: 1034748570521031006, guid: ad66bad068756344fa9120d84a8379d0, type: 3}
+  - <Name>k__BackingField: Bank
+    <ID>k__BackingField: 4
+    <prefab>k__BackingField: {fileID: 6130419792037695011, guid: d99af8b625099a84fa58dedf6d9655c8, type: 3}
