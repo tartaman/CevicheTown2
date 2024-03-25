@@ -288,5 +288,6 @@ public enum TypeBuilding
 {
     Deco,
     Generative,
-    Resource
+    Resource,
+    Bank
 }

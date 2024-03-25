@@ -29,6 +29,11 @@ public class BankScript : Building
             // Debug message
             Debug.Log($"Building in {area.x}, {area.y} clicked!");
 
+            //Como es el banco aquí haré un checkeo de que si es banco, se muestran las ventas
+            if (buildingType == TypeBuilding.Bank)
+            {
+                //Aqui se haria el ui pero me canse xd
+            }
             // Return early since we handled the click
             return;
         }
