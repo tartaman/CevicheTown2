@@ -11,6 +11,7 @@ public class VenderButtonScript : MonoBehaviour
     GameObject widget;
     ResourcesDatabase resourcesDatabase;
     Button button;
+    MissionsManager missionsManager;
 
     private void Awake()
     {
@@ -19,7 +20,8 @@ public class VenderButtonScript : MonoBehaviour
 
     private void Update()
     {
-        if(resourcesDatabase != null)
+        
+        if (resourcesDatabase != null)
         {
             if (!CompleteMission() && button.interactable)
             {
@@ -34,11 +36,12 @@ public class VenderButtonScript : MonoBehaviour
         
     }
 
-    public void assignMission(Mission mision, GameObject missionWidget, ResourcesDatabase resources)
+    public void assignMission(Mission mision, GameObject missionWidget, ResourcesDatabase resources, MissionsManager manager)
     {
         missionAssigned = mision;
-        widget = missionWidget;
+        widget = missionWidget;    
         resourcesDatabase = resources;
+        missionsManager = manager;
     }
 
     public bool CompleteMission()
@@ -63,12 +66,22 @@ public class VenderButtonScript : MonoBehaviour
         }
         return -1;
     }
+
+    void RestarObjetosYGanarDinero()
+    {
+        foreach (var objecto in missionAssigned.items)
+        {
+            resourcesDatabase.resourcedata[ObjectPosition(objecto.Item1)].quantity -= objecto.Item2;          
+        }
+        // ToDo Espacio para ganar dinero cuando victor me diga
+    }
     
     public void FinishMission()
     {
-        if (CompleteMission())
-        {
-            Destroy(widget.gameObject);
-        }
+        Debug.LogWarning("Eliminando");
+        RestarObjetosYGanarDinero();
+        missionsManager.GenerateMission();
+        Destroy(widget);
+        
     }
 }

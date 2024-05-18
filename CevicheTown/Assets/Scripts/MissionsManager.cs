@@ -24,7 +24,7 @@ public class MissionsManager : MonoBehaviour
         }
     }
 
-    private void GenerateMission()
+    public void GenerateMission()
     {
         Mission newMission = new Mission();
         int level = missionProgress.missionsInfo.level - 1;
@@ -38,7 +38,7 @@ public class MissionsManager : MonoBehaviour
             int itemQuantity = Random.Range(missionProgress.missionsInfo.minOfItemsPerLevel[level], missionProgress.missionsInfo.maxOfItemsPerLevel[level] + 1);
 
             bool alreadyAdded = false;
-
+            // Espacio para hacer el que no acepte repetidos
             if (!alreadyAdded)
                 newMission.items.Add((itemId, itemQuantity));
 
@@ -46,6 +46,7 @@ public class MissionsManager : MonoBehaviour
 
         // Ponerle los items a la lista
         GameObject mission = Instantiate(missionWidget, transform.position, Quaternion.identity, panel.transform);
+        Debug.LogWarning(mission.gameObject);
         for (int i = 0; i < newMission.items.Count; i++)
         {
             GameObject missionText = new GameObject();
@@ -68,10 +69,10 @@ public class MissionsManager : MonoBehaviour
             Instantiate(text, transform.position, Quaternion.identity, mission.transform);
         }
 
-        // Calcular la recompensa, que va del 70 al 100% del valor total de los items
+        // Calcular la recompensa, que va del 70 al 125% del valor total de los items
         float recompensa = Random.Range(0.70f, 1.25f);
 
-        //Calcular la suma
+        //Calcular la suma de la recompensa
         float suma = 0;
         foreach (var item in newMission.items)
         {
@@ -97,7 +98,11 @@ public class MissionsManager : MonoBehaviour
         Instantiate(texto, transform.position, Quaternion.identity, mission.transform);
 
         GameObject button = Instantiate(buttonPrefab, transform.position, Quaternion.identity, mission.transform);
-        button.AddComponent<VenderButtonScript>().assignMission(newMission, mission, resourcesDatabase);
-        button.GetComponent<Button>().onClick.AddListener(button.AddComponent<VenderButtonScript>().FinishMission);
+        button.AddComponent<VenderButtonScript>().assignMission(newMission, mission.gameObject, resourcesDatabase, this);
+        button.GetComponent<Button>().onClick.AddListener(button.GetComponent<VenderButtonScript>().FinishMission);
+
+       
+
+       
     }
 }
