@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 9f5870ede5d1aae439bf7998927ea6ab
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - missionProgress: {instanceID: 0}
+  - missionsDatabase: {fileID: 11400000, guid: 23422049b82d0dc4cabdfb47d46f83b4, type: 2}
+  - resourcesDatabase: {fileID: 11400000, guid: 3b2a7b18da816334fa59d5dbd4d5c64a, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

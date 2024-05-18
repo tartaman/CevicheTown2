@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7fad5686d6a8584b8475bc098b0cbda, type: 3}
+  m_Name: MissionProgress
+  m_EditorClassIdentifier: 
+  missionsInfo:
+    level: 1
+    maxLevel: 3
+    maxQuantityOfItems: 2
+    maxQuantityOfMissions: 5
+    missionsToLevelUp: 040000000c00000014000000
+    minOfItemsPerLevel: 64000000c80000002c010000
+    maxOfItemsPerLevel: c80000002c01000090010000
