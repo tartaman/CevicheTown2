@@ -17,7 +17,7 @@ MonoBehaviour:
     <ID>k__BackingField: 0
     <prefab>k__BackingField: {fileID: 6734999922044803571, guid: d2f7fde921670b4479966e26d8504297, type: 3}
     <sprite>k__BackingField: {fileID: 21300000, guid: 696426e1a430cfd4e848d6dbcb04a9e7, type: 3}
-    <ValuePerUnit>k__BackingField: 1
+    <ValuePerUnit>k__BackingField: 0.1
     <quantity>k__BackingField: 816
     <source>k__BackingField: {fileID: 6734999922044803571, guid: d2f7fde921670b4479966e26d8504297, type: 3}
     <MaxQuantity>k__BackingField: 500
@@ -26,7 +26,7 @@ MonoBehaviour:
     <ID>k__BackingField: 1
     <prefab>k__BackingField: {fileID: 1679267264666306934, guid: 1bf8a7389aa2c5548a57b20513074d27, type: 3}
     <sprite>k__BackingField: {fileID: 21300000, guid: 3148c799ec6aa4649ab300f494806044, type: 3}
-    <ValuePerUnit>k__BackingField: 2
+    <ValuePerUnit>k__BackingField: 0.2
     <quantity>k__BackingField: 365
     <source>k__BackingField: {fileID: 1679267264666306934, guid: 1bf8a7389aa2c5548a57b20513074d27, type: 3}
     <MaxQuantity>k__BackingField: 500

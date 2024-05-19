@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Android;
 using UnityEngine.UI;
 using static UnityEditor.Progress;
 
@@ -16,57 +19,39 @@ public class MissionsManager : MonoBehaviour
     [SerializeField] private GameObject buttonPrefab;
 
 
-    private void Awake()
+    private void Start()
     {
-        for (int i = 0; i < 6; i++)
+        LoadMissions();
+
+        /*
+        for(int i = 0; i < missionProgress.missionsInfo.maxQuantityOfMissions; i++)
         {
-            GenerateMission();
+            Mission msionsita= GenerateMission();
+            SetVisualMission(msionsita);
         }
+        */
     }
 
-    public void GenerateMission()
+    public Mission GenerateMission()
     {
         Mission newMission = new Mission();
         int level = missionProgress.missionsInfo.level - 1;
         int random = Random.Range(1, missionProgress.missionsInfo.maxQuantityOfItems + 1);
+
         for (int i = 0; i < random; i++)
         {
-            if (i > resourcesDatabase.resourcedata.Count) {
-                return;
-            }
+            
             int itemId = Random.Range(0, resourcesDatabase.resourcedata.Count);
             int itemQuantity = Random.Range(missionProgress.missionsInfo.minOfItemsPerLevel[level], missionProgress.missionsInfo.maxOfItemsPerLevel[level] + 1);
 
-            bool alreadyAdded = false;
-            // Espacio para hacer el que no acepte repetidos
-            if (!alreadyAdded)
-                newMission.items.Add((itemId, itemQuantity));
-
-        }
-
-        // Ponerle los items a la lista
-        GameObject mission = Instantiate(missionWidget, transform.position, Quaternion.identity, panel.transform);
-        Debug.LogWarning(mission.gameObject);
-        for (int i = 0; i < newMission.items.Count; i++)
-        {
-            GameObject missionText = new GameObject();
-            TextMeshProUGUI text = missionText.AddComponent<TextMeshProUGUI>();
-            text.fontSize = 70;
-            text.alignment = TextAlignmentOptions.Center;
-            text.enableWordWrapping = false;
-            string objectName = "";
-            foreach (var item in resourcesDatabase.resourcedata)
+            (bool, int) result = newMission.FindIfAlreadyAdded(itemId);
+            if (!result.Item1)
+                newMission.items.Add(new Item(itemId, itemQuantity));
+            else
             {
-                if (item.ID == newMission.items[i].Item1)
-                {
-                    objectName = item.Name;
-                    break;
-                }
+                newMission.items[result.Item2] =  new Item(itemId, newMission.items[result.Item2].quantity + itemQuantity);
             }
 
-            text.text = $"{objectName}...x{newMission.items[i].Item2}";
-
-            Instantiate(text, transform.position, Quaternion.identity, mission.transform);
         }
 
         // Calcular la recompensa, que va del 70 al 125% del valor total de los items
@@ -80,18 +65,67 @@ public class MissionsManager : MonoBehaviour
             foreach (var producto in resourcesDatabase.resourcedata)
             {
 
-                if (producto.ID == item.Item1)
+                if (producto.ID == item.id)
                 {
                     precio = producto.ValuePerUnit;
                 }
             }
-            suma += item.Item2 * precio;
+            suma += item.quantity * precio;
         }
         suma *= recompensa;
+        newMission.reward = (int)suma;
+        SaveMissionInDB(newMission);
+        return newMission;
+        
+    }
+
+    void SaveMissionInDB(Mission mission)
+    {
+
+        missionsDatabase.missions.Add(mission);
+    }
+
+    public void DeleteMissionInDB(Mission mission)
+    {
+        // Solo elimina la primera instancia de esa mision
+        foreach(Mission quest in missionsDatabase.missions) { 
+            if(quest == mission)
+            {
+                missionsDatabase.missions.Remove(quest);
+                return;
+            }
+        }
+    }
+
+    void SetVisualMission(Mission newMission)
+    {
+        // Ponerle los items a la lista
+        GameObject mission = Instantiate(missionWidget, transform.position, Quaternion.identity, panel.transform);
+        for (int i = 0; i < newMission.items.Count; i++)
+        {
+            GameObject missionText = new GameObject();
+            TextMeshProUGUI text = missionText.AddComponent<TextMeshProUGUI>();
+            text.fontSize = 70;
+            text.alignment = TextAlignmentOptions.Center;
+            text.enableWordWrapping = false;
+            string objectName = "";
+            foreach (var item in resourcesDatabase.resourcedata)
+            {
+                if (item.ID == newMission.items[i].id)
+                {
+                    objectName = item.Name;
+                    break;
+                }
+            }
+
+            text.text = $"{objectName}...x{newMission.items[i].quantity}";
+
+            Instantiate(text, transform.position, Quaternion.identity, mission.transform);
+        }
 
         GameObject recompensaText = new GameObject();
         TextMeshProUGUI texto = recompensaText.AddComponent<TextMeshProUGUI>();
-        texto.text = $"${(int)suma}";
+        texto.text = $"${newMission.reward}";
         texto.fontSize = 70;
         texto.alignment = TextAlignmentOptions.Center;
         texto.enableWordWrapping = false;
@@ -100,9 +134,15 @@ public class MissionsManager : MonoBehaviour
         GameObject button = Instantiate(buttonPrefab, transform.position, Quaternion.identity, mission.transform);
         button.AddComponent<VenderButtonScript>().assignMission(newMission, mission.gameObject, resourcesDatabase, this);
         button.GetComponent<Button>().onClick.AddListener(button.GetComponent<VenderButtonScript>().FinishMission);
-
-       
-
-       
     }
+
+    void LoadMissions()
+    {
+        foreach(Mission missionInDB in missionsDatabase.missions)
+        {
+            Debug.LogWarning(missionInDB.items.Count);
+            SetVisualMission(missionInDB);
+        }
+    }
+
 }

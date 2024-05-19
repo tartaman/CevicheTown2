@@ -48,7 +48,7 @@ public class VenderButtonScript : MonoBehaviour
     {
         foreach (var objecto in missionAssigned.items)
         {
-            if(objecto.Item2 >= resourcesDatabase.resourcedata[ObjectPosition(objecto.Item1)].quantity){
+            if(objecto.quantity >= resourcesDatabase.resourcedata[ObjectPosition(objecto.id)].quantity){
                 return false;
             }
         }
@@ -71,7 +71,7 @@ public class VenderButtonScript : MonoBehaviour
     {
         foreach (var objecto in missionAssigned.items)
         {
-            resourcesDatabase.resourcedata[ObjectPosition(objecto.Item1)].quantity -= objecto.Item2;          
+            resourcesDatabase.resourcedata[ObjectPosition(objecto.id)].quantity -= objecto.quantity;          
         }
         // ToDo Espacio para ganar dinero cuando victor me diga
     }
