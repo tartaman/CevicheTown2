@@ -182,6 +182,7 @@ public class Building : MonoBehaviour
         Placed = true;
         GridBuildingSystem.instance.TakeArea(areaTemp);
         ShopController.instance.currency -= cost;
+        ShopController.instance.missionProgress.money -= (int)cost;
         if (TypeBuilding.Deco == buildingType || TypeBuilding.Generative == buildingType)
             GridBuildingSystem.instance.placedBuildings.Add(this);
     }

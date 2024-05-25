@@ -23,11 +23,21 @@ public class ShopController : MonoBehaviour
     GameObject PrefabToInsert;
     [SerializeField]
     List<GameObject> ShopList = new List<GameObject>();
+
+    //Agregué esto lit nada mas para ponerlo en 1 al principio
+    [SerializeField] Scrollbar scrollbar;
+
+    // Y esto para guardar el dinero
+    [SerializeField] public MissionProgress missionProgress;
+
+    // Para mostrar el dinero en la tienda
+    [SerializeField] TextMeshProUGUI textTienda;
     void Start()
     {
+        
         instance = this;
         shopPanel.SetActive(false);
-        currency = 100;
+        currency = missionProgress.money;
         textCurrency.text = "" + currency;
         foreach (var data in Buildings.objectsdata)
         {
@@ -41,10 +51,12 @@ public class ShopController : MonoBehaviour
             ToInsert.GetComponent<Image>().sprite = data.prefab.GetComponentInChildren<SpriteRenderer>().sprite;
             ShopList.Add(ToInsert);
         }
+        scrollbar.value = 2;
     }
     private void Update()
     {
         textCurrency.text = "" + currency;
+        textTienda.text = $"${missionProgress.money}";
     }
     public void ToggleShopPanel()
     {

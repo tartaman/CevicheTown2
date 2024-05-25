@@ -8,6 +8,7 @@ using System;
 [Serializable]
 public class MissionsInfo
 {
+    
     public int level;
     public int maxLevel;
     public int maxQuantityOfItems;
@@ -47,9 +48,11 @@ public class MissionsInfo
 public class MissionProgress : ScriptableObject
 {
     public MissionsInfo missionsInfo;
+    public int money;
 
     public MissionProgress()
-    {
+    { 
+        money = 500;
         missionsInfo = new MissionsInfo();
     }
 }
