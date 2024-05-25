@@ -21,15 +21,21 @@ public class MissionsManager : MonoBehaviour
 
     private void Start()
     {
-        LoadMissions();
-
-        /*
-        for(int i = 0; i < missionProgress.missionsInfo.maxQuantityOfMissions; i++)
+        
+        if(missionsDatabase.missions.Count < missionProgress.missionsInfo.maxQuantityOfMissions)
         {
-            Mission msionsita= GenerateMission();
-            SetVisualMission(msionsita);
+            int misionesFaltantes = missionProgress.missionsInfo.maxQuantityOfMissions - missionsDatabase.missions.Count;
+            for (int i = 0; i < misionesFaltantes; i++)
+            {
+                Mission msionsita = GenerateMission();
+                SetVisualMission(msionsita);
+            }
         }
-        */
+        else
+        {
+            LoadMissions();
+        }
+    
     }
 
     public Mission GenerateMission()
@@ -108,6 +114,7 @@ public class MissionsManager : MonoBehaviour
             text.fontSize = 70;
             text.alignment = TextAlignmentOptions.Center;
             text.enableWordWrapping = false;
+            text.color = Color.black;
             string objectName = "";
             foreach (var item in resourcesDatabase.resourcedata)
             {
