@@ -222,12 +222,22 @@ public class Building : MonoBehaviour
                         {
                             // El recurso está dentro del rango del edificio
                             HasNeededResource = true;
-                            if (!ResourcesInsideRange.Contains(resource))
+
+                            //Si el recurso es cercano, verifica que no se esté en la capacidad máxima para recogerlo
+                            if(InventoryManager1.instance.resources.resourcedata.Find(x => x.source.id == resource.producesId).quantity 
+                                <= InventoryManager1.instance.resources.resourcedata.Find(x => x.source.id == resource.producesId).MaxQuantity)
                             {
-                                ResourcesInsideRange.Add(resource);
+                                if (!ResourcesInsideRange.Contains(resource))
+                                {
+                                    ResourcesInsideRange.Add(resource);
+                                }
+                                Debug.Log($"Building at {area.position} has the needed resource.");
                             }
-                            Debug.Log($"Building at {area.position} has the needed resource.");
-                        
+                            else
+                            {
+                                Debug.Log($"Resource is at it's Maximun Capacity");
+                            }
+
                         } else
                         {
                             HasNeededResource = false;

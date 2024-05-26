@@ -34,7 +34,7 @@ public class InventoryManager1 : MonoBehaviour
             Debug.Log("Añadi un resource");
         }
         //InventoryContent.GetComponent<RectTransform>().anchorMin = Vector3.zero;
-
+        
         InventoryCanvas.gameObject.SetActive(false);
     }
 
@@ -113,7 +113,7 @@ public class ResourceInInventory
         PricePerUnit = data.ValuePerUnit;
         //BotonVenta = prefab.GetComponentInChildren<Button>();
         //BotonVenta.onClick.AddListener(SellQuantityPrice);
-        
+
     }
 
     public GameObject Prefab { get => prefab; set => prefab = value; }
