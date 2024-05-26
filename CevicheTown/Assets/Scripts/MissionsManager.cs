@@ -30,12 +30,12 @@ public class MissionsManager : MonoBehaviour
                 Mission msionsita = GenerateMission();
                 SetVisualMission(msionsita);
             }
+            
         }
-        else
-        {
-            LoadMissions();
-        }
-    
+       
+        
+        LoadMissions();
+
     }
 
     public Mission GenerateMission()
@@ -102,8 +102,14 @@ public class MissionsManager : MonoBehaviour
             }
         }
     }
-
     void SetVisualMission(Mission newMission)
+    {
+        GameObject mission = Instantiate(missionWidget, transform.position, Quaternion.identity, panel.transform);
+        mission.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"${newMission.reward}";
+    }
+
+
+        void SetVisualMissionOld(Mission newMission)
     {
         // Ponerle los items a la lista
         GameObject mission = Instantiate(missionWidget, transform.position, Quaternion.identity, panel.transform);
