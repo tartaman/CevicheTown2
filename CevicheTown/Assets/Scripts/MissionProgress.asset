@@ -16,7 +16,7 @@ MonoBehaviour:
     level: 1
     maxLevel: 3
     maxQuantityOfItems: 2
-    maxQuantityOfMissions: 5
+    maxQuantityOfMissions: 9
     missionsToLevelUp: 040000000c00000014000000
     minOfItemsPerLevel: 64000000c80000002c010000
     maxOfItemsPerLevel: c80000002c01000090010000
