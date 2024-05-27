@@ -4,7 +4,6 @@ using System.Reflection;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Android;
 using UnityEngine.UI;
 using static UnityEditor.Progress;
 
@@ -17,6 +16,7 @@ public class MissionsManager : MonoBehaviour
     [SerializeField] private GameObject missionWidget;
     [SerializeField] private GameObject panel;
     [SerializeField] private GameObject buttonPrefab;
+    [SerializeField] private GameObject ItemDisplay;
 
 
     private void Start()
@@ -106,10 +106,12 @@ public class MissionsManager : MonoBehaviour
     {
         GameObject mission = Instantiate(missionWidget, transform.position, Quaternion.identity, panel.transform);
         mission.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"${newMission.reward}";
+        mission.GetComponent<VenderButtonScript>().assignMission(newMission, mission.gameObject, resourcesDatabase, this, ItemDisplay);
+        mission.GetComponent<Button>().onClick.AddListener(mission.GetComponent<VenderButtonScript>().ShowItems);
     }
 
 
-        void SetVisualMissionOld(Mission newMission)
+    void SetVisualMissionOld(Mission newMission)
     {
         // Ponerle los items a la lista
         GameObject mission = Instantiate(missionWidget, transform.position, Quaternion.identity, panel.transform);
@@ -145,7 +147,7 @@ public class MissionsManager : MonoBehaviour
         Instantiate(texto, transform.position, Quaternion.identity, mission.transform);
 
         GameObject button = Instantiate(buttonPrefab, transform.position, Quaternion.identity, mission.transform);
-        button.AddComponent<VenderButtonScript>().assignMission(newMission, mission.gameObject, resourcesDatabase, this);
+        button.AddComponent<VenderButtonScript>().assignMission(newMission, mission.gameObject, resourcesDatabase, this, ItemDisplay);
         button.GetComponent<Button>().onClick.AddListener(button.GetComponent<VenderButtonScript>().FinishMission);
     }
 
