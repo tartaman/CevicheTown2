@@ -54,7 +54,7 @@ public class Building : MonoBehaviour
     //Area del rando
     public BoundsInt currRange;
     //Encapsulamiento del rango
-    public int Range { get { return range; } }
+    public int Range { get { return range; } set { range = value; } }
     //Cosas o recursos dentro del rango
     public List<Vector3Int> withinRange;
     //Identificador del recurso que genera, en este caso es el nombre en la base de datos
@@ -214,31 +214,27 @@ public class Building : MonoBehaviour
         {
             foreach (ResourceScript resource in GridBuildingSystem.instance.Enviroment)
             {
-                foreach (var ResourcePos in resource.currRange.allPositionsWithin)
+                // Verificar si la posición actual coincide con la posición del recurso
+                if (resource.area.position == Rangeposition)
                 {
-                    // Verificar si la posición actual coincide con la posición del recurso
-                    if (resource.currRange.position == Rangeposition)
+                    //saber si el recurso dentro es el tipo de recurso que necesita
+                    if (InventoryManager1.instance.resources.resourcedata.Find(x => x.source.id == resource.producesId).Name == neededResourceId)
                     {
-                        //saber si el recurso dentro es el tipo de recurso que necesita
-                        if (InventoryManager1.instance.resources.resourcedata.Find(x => x.source.id == resource.producesId).Name == neededResourceId)
+                        // El recurso está dentro del rango del edificio
+                        HasNeededResource = true;
+                        if (!ResourcesInsideRange.Contains(resource))
                         {
-                            // El recurso está dentro del rango del edificio
-                            HasNeededResource = true;
-                            if (!ResourcesInsideRange.Contains(resource))
-                            {
-                                ResourcesInsideRange.Add(resource);
-                            }
-                            Debug.Log($"Building at {area.position} has the needed resource.");
+                            ResourcesInsideRange.Add(resource);
+                        }
+                        Debug.Log($"Building at {area.position} has the needed resource.");
 
-                        }
-                        else
-                        {
-                            HasNeededResource = false;
-                            ResourcesInsideRange.Clear();
-                        }
+                    }
+                    else
+                    {
+                        HasNeededResource = false;
+                        ResourcesInsideRange.Clear();
                     }
                 }
-                
             }
         }
     }

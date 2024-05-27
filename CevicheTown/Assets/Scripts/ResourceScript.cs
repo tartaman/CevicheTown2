@@ -41,6 +41,15 @@ public class ResourceScript : Building
                 isCoroutineRunning = true;
             }
         }
+        //foreach (var resource in GridBuildingSystem.instance.Enviroment)
+        //{
+        //    if (!resource.isPrimary)
+        //    {
+        //        resource.Range = 0;
+        //        resource.isPrimary = true;
+        //    }
+            
+        //}
     }
     public override void Place()
     {
