@@ -321,7 +321,7 @@ public class GridBuildingSystem : MonoBehaviour
         temptilemap.SetTilesBlock(range, tilerangeArray);
         if (prevArea != buildingArea)
         {
-            UnityEngine.Debug.Log("Changed mousepos");
+            //UnityEngine.Debug.Log("Changed mousepos");
             ResetRangeTiles(range);
         }
         //Checo si se puede poner el edificio temporal y si sí entonces le pongo color verde en este caso el material

@@ -8,7 +8,6 @@ using System;
 [Serializable]
 public class MissionsInfo
 {
-    
     public int level;
     public int maxLevel;
     public int maxQuantityOfItems;

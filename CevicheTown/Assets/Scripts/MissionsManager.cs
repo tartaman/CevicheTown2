@@ -10,7 +10,7 @@ using static UnityEditor.Progress;
 
 public class MissionsManager : MonoBehaviour
 {
-    [SerializeField] private MissionProgress missionProgress;
+    [SerializeField] public MissionProgress missionProgress;
     [SerializeField] private MissionsDatabase missionsDatabase;
     [SerializeField] private ResourcesDatabase resourcesDatabase;
     [SerializeField] private GameObject missionWidget;

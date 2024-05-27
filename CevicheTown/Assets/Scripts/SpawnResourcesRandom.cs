@@ -50,13 +50,13 @@ public class SpawnResourcesRandom : MonoBehaviour
                 {
                     // Selecciona aleatoriamente un GameObject de la lista de recursos disponibles
                     GameObject randomResourceGO = GetRandomResourceGO();
-                    Debug.Log($"mi random resource fue: {randomResourceGO}");
+                    //Debug.Log($"mi random resource fue: {randomResourceGO}");
                     // Coloca el recurso aleatorio en la posición actual
                     int rand = Random.Range(1, 11);
-                    Debug.Log(rand);
+                    //Debug.Log(rand);
                     foreach (var resource in database.resourcedata) 
                     {
-                        Debug.Log($"{resource.Name}");
+                        //Debug.Log($"{resource.Name}");
                         //Aqui se pondria un place como los de abajo con cada uno de los recursos para que pueda tener un recurso de cada
                         //uno que sea necesario para progresar
                     }

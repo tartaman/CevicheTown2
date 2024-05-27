@@ -138,8 +138,8 @@ public class ResourceScript : Building
             resourceScriptInstance.area.position = randomPos;
             resourceScriptInstance.SetSortingOrder();
             resourceScriptInstance.Place();
-            GridBuildingSystem.instance.Enviroment.Add(resourceScriptInstance);
-            Debug.Log($"Voy a generar un arbol en {randomPos}");
+            //GridBuildingSystem.instance.Enviroment.Add(resourceScriptInstance);
+            //Debug.Log($"Voy a generar un arbol en {randomPos}");
             alreadyPlaced.Add(randomPos);
         }
     }

@@ -31,7 +31,7 @@ public class InventoryManager1 : MonoBehaviour
         foreach (var data in resources.resourcedata)
         {
             InventoryList.Add(new ResourceInInventory(Instantiate(PrefabToInsert,InventoryContent.transform), data));
-            Debug.Log("Añadi un resource");
+            //Debug.Log("Añadi un resource");
         }
         //InventoryContent.GetComponent<RectTransform>().anchorMin = Vector3.zero;
 
@@ -92,7 +92,7 @@ public class ResourceInInventory
         
         //Cambiar el máximo valor del recurso de acuerdo con la capacidad de los inventarios
         Slider slider = prefab.GetComponentInChildren<Slider>();
-        Debug.Log(slider);
+        //Debug.Log(slider);
         slider.maxValue = data.MaxQuantity;
 
         

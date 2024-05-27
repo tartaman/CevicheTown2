@@ -208,17 +208,19 @@ public class Building : MonoBehaviour
     #endregion
     private void CheckIfInsideRange()
     {
-                // Iterar sobre todas las posiciones dentro del rango del edificio
-        foreach (var position in currRange.allPositionsWithin)
+        Debug.Log("Checking Range");
+        // Iterar sobre todas las posiciones dentro del rango del edificio
+        foreach (var Rangeposition in currRange.allPositionsWithin)
         {
             foreach (ResourceScript resource in GridBuildingSystem.instance.Enviroment)
             {
-                foreach (var RePos in resource.posTilesAround)
+                foreach (var ResourcePos in resource.currRange.allPositionsWithin)
                 {
                     // Verificar si la posición actual coincide con la posición del recurso
-                    if (RePos == position)
+                    if (resource.currRange.position == Rangeposition)
                     {
-                        if (InventoryManager1.instance.resources.resourcedata.Find(x=> x.source.id == resource.producesId).Name == neededResourceId)
+                        //saber si el recurso dentro es el tipo de recurso que necesita
+                        if (InventoryManager1.instance.resources.resourcedata.Find(x => x.source.id == resource.producesId).Name == neededResourceId)
                         {
                             // El recurso está dentro del rango del edificio
                             HasNeededResource = true;
@@ -227,14 +229,16 @@ public class Building : MonoBehaviour
                                 ResourcesInsideRange.Add(resource);
                             }
                             Debug.Log($"Building at {area.position} has the needed resource.");
-                        
-                        } else
+
+                        }
+                        else
                         {
                             HasNeededResource = false;
                             ResourcesInsideRange.Clear();
                         }
                     }
                 }
+                
             }
         }
     }

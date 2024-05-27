@@ -12,6 +12,7 @@ TagManager:
   - CinemachineCamera
   - UpgradePanel
   - ImageBuildingUpgrade
+  - MissionsManager
   layers:
   - Default
   - TransparentFX
