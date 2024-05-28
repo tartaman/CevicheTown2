@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class SaveData : MonoBehaviour
 {
-    [SerializeField] aUser _user = new aUser();
+    [SerializeField] public aUser _user = new aUser();
     
     private void OnApplicationQuit()
     {
@@ -66,13 +66,14 @@ public class SaveData : MonoBehaviour
             _user.grid.resources.Add(_resource);
         }
 
-        _user.Name = "Pablo1";
         _user.Money = GameObject.FindWithTag("MissionsManager").GetComponent<MissionsManager>().missionProgress.money;
 
         Debug.LogWarning(Application.persistentDataPath + "/GridData.json");
         string gridData = JsonUtility.ToJson(_user);
+        StartCoroutine(GameObject.Find("GameManager").GetComponent<DatabaseLoader>().saveGame(_user.Name, _user.grid.fileName, gridData));
         System.IO.File.WriteAllText(Application.persistentDataPath + "/GridData.json", gridData);
     }
+
 }
 
 [System.Serializable]
@@ -86,6 +87,7 @@ public class aUser
 [System.Serializable]
 public class aGrid
 {
+    public string fileName;
     public List<aBuilding> buildings;
     public List<aResource> resources;
 }
