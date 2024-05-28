@@ -13,28 +13,6 @@ public class DatabaseLoader : MonoBehaviour
     [SerializeField] public string fileName;
     [SerializeField] public string fileContents;
 
-    private void Start()
-    {
-    }
-
-    IEnumerator getText()
-    {
-        using(UnityWebRequest www = UnityWebRequest.Get("http://localhost/CevicheTown/GridData.php"))
-        {
-            yield return www.SendWebRequest();
-
-            if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
-            {
-                Debug.LogError(www.error);
-            }
-            else
-            {
-                //Show results as text
-                Debug.Log(www.downloadHandler.text);
-            }
-        }
-    }
-
     public IEnumerator getUserData(string username, string password)
     {
         WWWForm form = new WWWForm();
