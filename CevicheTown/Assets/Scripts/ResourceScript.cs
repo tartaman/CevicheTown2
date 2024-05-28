@@ -16,6 +16,8 @@ public class ResourceScript : Building
     private bool isCoroutineRunning = false;
     [SerializeField]
     List<Vector3Int> alreadyPlaced;
+    [SerializeField]
+    float TiempoParaGenerar;
     private void Start()
     {
         posTilesAround = new List<Vector3Int>();
@@ -37,19 +39,19 @@ public class ResourceScript : Building
             posTilesAround = GetTilesAround();
             if (!isCoroutineRunning)
             {
-                StartCoroutine(GenerateTreesAround(0f));
+                StartCoroutine(GenerateTreesAround(TiempoParaGenerar));
                 isCoroutineRunning = true;
             }
         }
-        //foreach (var resource in GridBuildingSystem.instance.Enviroment)
-        //{
-        //    if (!resource.isPrimary)
-        //    {
-        //        resource.Range = 0;
-        //        resource.isPrimary = true;
-        //    }
-            
-        //}
+        foreach (var resource in GridBuildingSystem.instance.Enviroment)
+        {
+            if (!resource.isPrimary)
+            {
+                resource.Range = 0;
+                resource.isPrimary = true;
+            }
+
+        }
     }
     public override void Place()
     {

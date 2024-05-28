@@ -130,6 +130,7 @@ MonoBehaviour:
   quantity: 0
   isPrimary: 0
   alreadyPlaced: []
+  TiempoParaGenerar: 0.1
 --- !u!1 &3409425384351031147
 GameObject:
   m_ObjectHideFlags: 0
