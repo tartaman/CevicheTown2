@@ -1,4 +1,3 @@
-using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,17 +7,12 @@ using UnityEngine;
 
 public class SaveData : MonoBehaviour
 {
-    [SerializeField] aUser _user = new aUser();
-    
-    private void OnApplicationQuit()
-    {
-        this.SaveIntoJson();
-    }
+    [SerializeField] aGrid _grid = new aGrid();
 
     public void SaveIntoJson()
     {
-        _user.grid.buildings.Clear();
-        _user.grid.resources.Clear();
+        _grid.buildings.Clear();
+        _grid.resources.Clear();
 
         GridBuildingSystem grid = GameObject.Find("Grid").GetComponent<GridBuildingSystem>();
 
@@ -39,7 +33,7 @@ public class SaveData : MonoBehaviour
             _building.needResourceId = b.neededResourceId;
 
             Debug.LogWarning($"Saving {b.gameObject.name}");
-            _user.grid.buildings.Add(_building);
+            _grid.buildings.Add(_building);
 
         }
 
@@ -63,24 +57,13 @@ public class SaveData : MonoBehaviour
             _resource.quantity = r.quantity;
 
             Debug.LogWarning($"Saving {r.gameObject.name}");
-            _user.grid.resources.Add(_resource);
+            _grid.resources.Add(_resource);
         }
 
-        _user.Name = "Pablo1";
-        _user.Money = GameObject.FindWithTag("MissionsManager").GetComponent<MissionsManager>().missionProgress.money;
-
         Debug.LogWarning(Application.persistentDataPath + "/GridData.json");
-        string gridData = JsonUtility.ToJson(_user);
+        string gridData = JsonUtility.ToJson(_grid);
         System.IO.File.WriteAllText(Application.persistentDataPath + "/GridData.json", gridData);
     }
-}
-
-[System.Serializable]
-public class aUser
-{
-    public string Name;
-    public int Money;
-    public aGrid grid;
 }
 
 [System.Serializable]
