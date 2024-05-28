@@ -37,7 +37,7 @@ public class ResourceScript : Building
             posTilesAround = GetTilesAround();
             if (!isCoroutineRunning)
             {
-                StartCoroutine(GenerateTreesAround(0f));
+                StartCoroutine(GenerateTreesAround(1f));
                 isCoroutineRunning = true;
             }
         }
