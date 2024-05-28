@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,12 +8,17 @@ using UnityEngine;
 
 public class SaveData : MonoBehaviour
 {
-    [SerializeField] aGrid _grid = new aGrid();
+    [SerializeField] public aUser _user = new aUser();
+    
+    private void OnApplicationQuit()
+    {
+        this.SaveIntoJson();
+    }
 
     public void SaveIntoJson()
     {
-        _grid.buildings.Clear();
-        _grid.resources.Clear();
+        _user.grid.buildings.Clear();
+        _user.grid.resources.Clear();
 
         GridBuildingSystem grid = GameObject.Find("Grid").GetComponent<GridBuildingSystem>();
 
@@ -33,7 +39,7 @@ public class SaveData : MonoBehaviour
             _building.needResourceId = b.neededResourceId;
 
             Debug.LogWarning($"Saving {b.gameObject.name}");
-            _grid.buildings.Add(_building);
+            _user.grid.buildings.Add(_building);
 
         }
 
@@ -57,18 +63,31 @@ public class SaveData : MonoBehaviour
             _resource.quantity = r.quantity;
 
             Debug.LogWarning($"Saving {r.gameObject.name}");
-            _grid.resources.Add(_resource);
+            _user.grid.resources.Add(_resource);
         }
 
+        _user.Money = GameObject.FindWithTag("MissionsManager").GetComponent<MissionsManager>().missionProgress.money;
+
         Debug.LogWarning(Application.persistentDataPath + "/GridData.json");
-        string gridData = JsonUtility.ToJson(_grid);
+        string gridData = JsonUtility.ToJson(_user);
+        StartCoroutine(GameObject.Find("GameManager").GetComponent<DatabaseLoader>().saveGame(_user.Name, _user.grid.fileName, gridData));
         System.IO.File.WriteAllText(Application.persistentDataPath + "/GridData.json", gridData);
     }
+
+}
+
+[System.Serializable]
+public class aUser
+{
+    public string Name;
+    public int Money;
+    public aGrid grid;
 }
 
 [System.Serializable]
 public class aGrid
 {
+    public string fileName;
     public List<aBuilding> buildings;
     public List<aResource> resources;
 }
