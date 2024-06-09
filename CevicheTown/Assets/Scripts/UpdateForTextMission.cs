@@ -19,7 +19,6 @@ public class UpdateForTextMission : MonoBehaviour
     {
         if(database != null)
         {
-            Debug.LogWarning(indexObjectDatabase);
 
             textComponent.text = $"{database.resourcedata[indexObjectDatabase].quantity}/{objective}";
         }

@@ -16,6 +16,7 @@ public class VenderButtonScript : MonoBehaviour
     MissionsManager missionsManager;
     GameObject itemsDisplay;
     [SerializeField] GameObject itemTextPrefab;
+    private TextMeshProUGUI textoRecompensa;
 
     private void Awake()
     {
@@ -42,13 +43,16 @@ public class VenderButtonScript : MonoBehaviour
         */
     }
 
-    public void assignMission(Mission mision, GameObject missionWidget, ResourcesDatabase resources, MissionsManager manager, GameObject itemDisplay)
+    public void assignMission(Mission mision, GameObject missionWidget, ResourcesDatabase resources, MissionsManager manager,
+        GameObject itemDisplay, Button buttonVender, TextMeshProUGUI recompensaText)
     {
         missionAssigned = mision;
         widget = missionWidget;    
         resourcesDatabase = resources;
         missionsManager = manager;
         itemsDisplay = itemDisplay;
+        button = buttonVender;
+        textoRecompensa = recompensaText;
     }
 
     public bool CompleteMission()
@@ -80,22 +84,29 @@ public class VenderButtonScript : MonoBehaviour
         {
             resourcesDatabase.resourcedata[ObjectPosition(objecto.id)].quantity -= objecto.quantity;          
         }
-        // ToDo Espacio para ganar dinero cuando victor me diga
+        Debug.Log($"Sumando {missionAssigned.reward}");
+        missionsManager.missionProgress.money += missionAssigned.reward;
     }
     
     public void FinishMission()
     {
-        Debug.LogWarning("Eliminando");
-        RestarObjetosYGanarDinero();
-        missionsManager.GenerateMission();
-        Destroy(widget);
-        
+        if (CompleteMission())
+        {
+            Debug.LogWarning("Eliminando");
+            RestarObjetosYGanarDinero();
+            missionsManager.GenerateAndDeleteForVisual(missionAssigned);
+
+            Destroy(widget);
+            Destroy(this);
+        }
     }
 
     public void ShowItems()
     {
+        if (!itemsDisplay.transform.parent.gameObject.activeSelf)
+            itemsDisplay.transform.parent.gameObject.SetActive(true);
         // Eliminar datos que ya estaban en la lista
-        
+
         for (int i = itemsDisplay.transform.GetChild(0).transform.childCount-1; i >= 0; i--)
         {
             Destroy(itemsDisplay.transform.GetChild(0).transform.GetChild(i).gameObject);
@@ -111,8 +122,13 @@ public class VenderButtonScript : MonoBehaviour
             nuevoTexto.transform.GetChild(0).gameObject.AddComponent<UpdateForTextMission>()
                 .SetParameters(resourcesDatabase, missionAssigned.items[i].quantity, ObjectPosition(missionAssigned.items[i].id));
             nuevoTexto.transform.GetChild(1).gameObject.GetComponent<Image>().sprite = resourcesDatabase.resourcedata[ObjectPosition(missionAssigned.items[i].id)].sprite;
-
-
         }
+
+        //Poner el texto de la recompensa
+        textoRecompensa.text = $"${missionAssigned.reward}";
+
+        //Hacer que el botón ahora venda esta misión
+        button.onClick.RemoveAllListeners();
+        button.onClick.AddListener(FinishMission);
     }
 }

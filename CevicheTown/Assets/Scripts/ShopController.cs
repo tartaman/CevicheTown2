@@ -55,6 +55,7 @@ public class ShopController : MonoBehaviour
     }
     private void Update()
     {
+        currency = missionProgress.money;
         textCurrency.text = "" + currency;
         textTienda.text = $"${missionProgress.money}";
     }

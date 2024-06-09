@@ -5,7 +5,6 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 
 public class MissionsManager : MonoBehaviour
@@ -15,8 +14,9 @@ public class MissionsManager : MonoBehaviour
     [SerializeField] private ResourcesDatabase resourcesDatabase;
     [SerializeField] private GameObject missionWidget;
     [SerializeField] private GameObject panel;
-    [SerializeField] private GameObject buttonPrefab;
     [SerializeField] private GameObject ItemDisplay;
+    [SerializeField] private Button buttonVender;
+    [SerializeField] private TextMeshProUGUI textoRecompensa;
 
 
     private void Start()
@@ -106,58 +106,26 @@ public class MissionsManager : MonoBehaviour
     {
         GameObject mission = Instantiate(missionWidget, transform.position, Quaternion.identity, panel.transform);
         mission.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"${newMission.reward}";
-        mission.GetComponent<VenderButtonScript>().assignMission(newMission, mission.gameObject, resourcesDatabase, this, ItemDisplay);
+        mission.GetComponent<VenderButtonScript>().assignMission(newMission, mission.gameObject, resourcesDatabase, this, ItemDisplay, buttonVender, textoRecompensa);
         mission.GetComponent<Button>().onClick.AddListener(mission.GetComponent<VenderButtonScript>().ShowItems);
     }
 
-
-    void SetVisualMissionOld(Mission newMission)
-    {
-        // Ponerle los items a la lista
-        GameObject mission = Instantiate(missionWidget, transform.position, Quaternion.identity, panel.transform);
-        for (int i = 0; i < newMission.items.Count; i++)
-        {
-            GameObject missionText = new GameObject();
-            TextMeshProUGUI text = missionText.AddComponent<TextMeshProUGUI>();
-            text.fontSize = 70;
-            text.alignment = TextAlignmentOptions.Center;
-            text.enableWordWrapping = false;
-            text.color = Color.black;
-            string objectName = "";
-            foreach (var item in resourcesDatabase.resourcedata)
-            {
-                if (item.ID == newMission.items[i].id)
-                {
-                    objectName = item.Name;
-                    break;
-                }
-            }
-
-            text.text = $"{objectName}...x{newMission.items[i].quantity}";
-
-            Instantiate(text, transform.position, Quaternion.identity, mission.transform);
-        }
-
-        GameObject recompensaText = new GameObject();
-        TextMeshProUGUI texto = recompensaText.AddComponent<TextMeshProUGUI>();
-        texto.text = $"${newMission.reward}";
-        texto.fontSize = 70;
-        texto.alignment = TextAlignmentOptions.Center;
-        texto.enableWordWrapping = false;
-        Instantiate(texto, transform.position, Quaternion.identity, mission.transform);
-
-        GameObject button = Instantiate(buttonPrefab, transform.position, Quaternion.identity, mission.transform);
-        button.AddComponent<VenderButtonScript>().assignMission(newMission, mission.gameObject, resourcesDatabase, this, ItemDisplay);
-        button.GetComponent<Button>().onClick.AddListener(button.GetComponent<VenderButtonScript>().FinishMission);
-    }
 
     void LoadMissions()
     {
         foreach(Mission missionInDB in missionsDatabase.missions)
         {
-            Debug.LogWarning(missionInDB.items.Count);
+           
             SetVisualMission(missionInDB);
         }
     }
 
+    public Mission GenerateAndDeleteForVisual(Mission misionAntigua)
+    {
+        DeleteMissionInDB(misionAntigua);
+        Mission misionNueva = GenerateMission();
+        SetVisualMission(misionNueva);
+        panel.transform.GetChild(0).GetComponent<VenderButtonScript>().ShowItems();
+        return misionNueva;
+    }
 }
