@@ -68,6 +68,7 @@ MonoBehaviour:
   neededResourceId: Wood
   HasNeededResource: 0
   ResourcesInsideRange: []
+  audioConstruccion: {fileID: 8300000, guid: f117152feda5491479eebff40fff3286, type: 3}
 --- !u!60 &8259982575316999137
 PolygonCollider2D:
   m_ObjectHideFlags: 0

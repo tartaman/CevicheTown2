@@ -3,7 +3,12 @@ guid: 65c3141e57c919b478c9242236bf91db
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - itemTextPrefab: {instanceID: 0}
+  - sonidoVer: {fileID: 8300000, guid: 1b75a46c1300e1d42b010863aa8bbbc3, type: 3}
+  - sonidoVender: {fileID: 8300000, guid: 9800abc25df7fc548a3cf70b2d489f6f, type: 3}
+  - sonidoFallar: {fileID: 8300000, guid: f5c0e8605d4bda74fa7036657d197bf1, type: 3}
+  - audioSource: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

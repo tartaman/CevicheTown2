@@ -17,7 +17,7 @@ public class MissionsManager : MonoBehaviour
     [SerializeField] private GameObject ItemDisplay;
     [SerializeField] private Button buttonVender;
     [SerializeField] private TextMeshProUGUI textoRecompensa;
-
+    [SerializeField] AudioSource audioSource;
 
     private void Start()
     {
@@ -106,7 +106,7 @@ public class MissionsManager : MonoBehaviour
     {
         GameObject mission = Instantiate(missionWidget, transform.position, Quaternion.identity, panel.transform);
         mission.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"${newMission.reward}";
-        mission.GetComponent<VenderButtonScript>().assignMission(newMission, mission.gameObject, resourcesDatabase, this, ItemDisplay, buttonVender, textoRecompensa);
+        mission.GetComponent<VenderButtonScript>().assignMission(newMission, mission.gameObject, resourcesDatabase, this, ItemDisplay, buttonVender, textoRecompensa, audioSource);
         mission.GetComponent<Button>().onClick.AddListener(mission.GetComponent<VenderButtonScript>().ShowItems);
     }
 

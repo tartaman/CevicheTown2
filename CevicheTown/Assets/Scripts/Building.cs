@@ -66,6 +66,15 @@ public class Building : MonoBehaviour
     //Lista de los recursos dentro del rango
     [SerializeField]
     private List<ResourceScript> ResourcesInsideRange;
+
+    [SerializeField] AudioClip audioConstruccion;
+    AudioSource audioSourceBuild;
+
+    private void Awake()
+    {
+        audioSourceBuild = GameObject.FindGameObjectWithTag("ShopManager").GetComponent<AudioSource>();
+    }
+
     private void Start()
     {
         ProducedMaterialSprite = database.resourcedata.Find(x => x.Name == neededResourceId).sprite;
@@ -185,6 +194,8 @@ public class Building : MonoBehaviour
         ShopController.instance.missionProgress.money -= (int)cost;
         if (TypeBuilding.Deco == buildingType || TypeBuilding.Generative == buildingType)
             GridBuildingSystem.instance.placedBuildings.Add(this);
+        audioSourceBuild.clip = audioConstruccion;
+        audioSourceBuild.Play();
     }
     public int SetSortingOrder()
     {

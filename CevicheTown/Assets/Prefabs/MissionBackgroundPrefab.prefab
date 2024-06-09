@@ -222,7 +222,7 @@ GameObject:
   - component: {fileID: 7280834730123473413}
   - component: {fileID: 1268490647917129213}
   - component: {fileID: 1705774992603621235}
-  - component: {fileID: 6651436407215104193}
+  - component: {fileID: 4655257001982952132}
   m_Layer: 5
   m_Name: MissionBackgroundPrefab
   m_TagString: Untagged
@@ -359,7 +359,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &6651436407215104193
+--- !u!114 &4655257001982952132
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -372,3 +372,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemTextPrefab: {fileID: 8794770246879314475, guid: 9cd9b7b7b4330d2489609453ca3a401e, type: 3}
+  sonidoVer: {fileID: 8300000, guid: 1b75a46c1300e1d42b010863aa8bbbc3, type: 3}
+  sonidoVender: {fileID: 8300000, guid: 9800abc25df7fc548a3cf70b2d489f6f, type: 3}
+  sonidoFallar: {fileID: 8300000, guid: f5c0e8605d4bda74fa7036657d197bf1, type: 3}
+  audioSource: {fileID: 0}

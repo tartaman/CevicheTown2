@@ -16,6 +16,10 @@ public class VenderButtonScript : MonoBehaviour
     MissionsManager missionsManager;
     GameObject itemsDisplay;
     [SerializeField] GameObject itemTextPrefab;
+    [SerializeField] AudioClip sonidoVer;
+    [SerializeField] AudioClip sonidoVender;
+    [SerializeField] AudioClip sonidoFallar;
+    [SerializeField] AudioSource audioSource;
     private TextMeshProUGUI textoRecompensa;
 
     private void Awake()
@@ -25,26 +29,11 @@ public class VenderButtonScript : MonoBehaviour
 
     private void Update()
     {
-        /*
-        if (resourcesDatabase != null && missionAssigned != null)
-        {
-            
-            if (!CompleteMission() && button.interactable)
-            {
-                
-                //button.interactable = false;
-            }
-            else if (CompleteMission() && !button.interactable)
-            {
-                button.interactable = true;
-            }
-            
-        }
-        */
+
     }
 
     public void assignMission(Mission mision, GameObject missionWidget, ResourcesDatabase resources, MissionsManager manager,
-        GameObject itemDisplay, Button buttonVender, TextMeshProUGUI recompensaText)
+        GameObject itemDisplay, Button buttonVender, TextMeshProUGUI recompensaText, AudioSource audioSource)
     {
         missionAssigned = mision;
         widget = missionWidget;    
@@ -53,6 +42,7 @@ public class VenderButtonScript : MonoBehaviour
         itemsDisplay = itemDisplay;
         button = buttonVender;
         textoRecompensa = recompensaText;
+        this.audioSource = audioSource;
     }
 
     public bool CompleteMission()
@@ -84,7 +74,6 @@ public class VenderButtonScript : MonoBehaviour
         {
             resourcesDatabase.resourcedata[ObjectPosition(objecto.id)].quantity -= objecto.quantity;          
         }
-        Debug.Log($"Sumando {missionAssigned.reward}");
         missionsManager.missionProgress.money += missionAssigned.reward;
     }
     
@@ -92,12 +81,20 @@ public class VenderButtonScript : MonoBehaviour
     {
         if (CompleteMission())
         {
-            Debug.LogWarning("Eliminando");
+            
             RestarObjetosYGanarDinero();
             missionsManager.GenerateAndDeleteForVisual(missionAssigned);
 
+            audioSource.clip = sonidoVender;
+            audioSource.Play();
+
             Destroy(widget);
             Destroy(this);
+        }
+        else
+        {
+            audioSource.clip = sonidoFallar;
+            audioSource.Play();
         }
     }
 
@@ -130,5 +127,9 @@ public class VenderButtonScript : MonoBehaviour
         //Hacer que el botón ahora venda esta misión
         button.onClick.RemoveAllListeners();
         button.onClick.AddListener(FinishMission);
+
+        // Poner el sonido
+        audioSource.clip = sonidoVer;
+        audioSource.Play();
     }
 }
