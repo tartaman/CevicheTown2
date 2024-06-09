@@ -54,6 +54,7 @@ public class InventoryManager1 : MonoBehaviour
                     {
                         //Set the text(Aqui tuve que usar text por que es la referencia al objeto lo que quiero cambiar)
                         resource.Texts[1].text = data.quantity.ToString();
+                        resource.Slider.value = data.quantity;
                     }
                 }
             }
@@ -84,6 +85,7 @@ public class ResourceInInventory
     Button botonVenta;
     float pricePerUnit;
     Resourcedata data;
+    Slider slider;
     public ResourceInInventory(GameObject prefabR, Resourcedata data)
     {
         this.data = data;
@@ -92,12 +94,17 @@ public class ResourceInInventory
         
         //Cambiar el máximo valor del recurso de acuerdo con la capacidad de los inventarios
         Slider slider = prefab.GetComponentInChildren<Slider>();
+        this.slider = slider;
         //Debug.Log(slider);
         slider.maxValue = data.MaxQuantity;
 
         
         // Cambiar el color de la slider al color característico del recurso
         slider.gameObject.transform.GetChild(1).GetChild(0).GetComponent<Image>().color = data.colorRecurso;
+        slider.interactable = false;
+
+        slider.maxValue = data.MaxQuantity;
+        slider.value = data.quantity;
 
         //Poner la imagen del recurso
         prefab.transform.GetChild(2).GetComponent<Image>().sprite = data.sprite;
@@ -123,6 +130,8 @@ public class ResourceInInventory
     public string Name { get; set; }
     public string QuantityText { get; set; }
     public int Quantity { get; set; }
+
+    public Slider Slider { get => slider; private set => slider = value; }
     public void SellQuantityPrice()
     {
         prefab.GetComponentsInChildren<TextMeshProUGUI>()[1].text = "0";
