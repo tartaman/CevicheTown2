@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: ObjectsDatabase
   m_EditorClassIdentifier: 
   objectsdata:
-  - <Name>k__BackingField: Casa
+  - <Name>k__BackingField: Sawmill
     <ID>k__BackingField: 0
-    <prefab>k__BackingField: {fileID: 6130419792037695011, guid: ca09182157441054b88b396d4f5d994b, type: 3}
+    <prefab>k__BackingField: {fileID: 3699046471304746434, guid: 8ce02d60fbf088840a62371b4e34ecda, type: 3}
   - <Name>k__BackingField: Ceviche
     <ID>k__BackingField: 1
     <prefab>k__BackingField: {fileID: 3683056607553216354, guid: d0d38ac02d30c144a9024ffb8f5e0c12, type: 3}
@@ -28,3 +28,9 @@ MonoBehaviour:
   - <Name>k__BackingField: Bank
     <ID>k__BackingField: 4
     <prefab>k__BackingField: {fileID: 6130419792037695011, guid: d99af8b625099a84fa58dedf6d9655c8, type: 3}
+  - <Name>k__BackingField: Cafe
+    <ID>k__BackingField: 5
+    <prefab>k__BackingField: {fileID: 5408146322718924233, guid: b7457a7a0eca9634798aa4152585184b, type: 3}
+  - <Name>k__BackingField: BigPersonalHouse
+    <ID>k__BackingField: 6
+    <prefab>k__BackingField: {fileID: 6976022648679216089, guid: d4b2a6973e105fb4a9e6a9e4a8678904, type: 3}
