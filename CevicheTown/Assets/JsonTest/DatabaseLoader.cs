@@ -30,7 +30,7 @@ public class DatabaseLoader : MonoBehaviour
             else
             {
                 //Show results as text
-                Debug.LogWarning(www.downloadHandler.text);
+                Debug.Log(www.downloadHandler.text);
 
                 string[] result = www.downloadHandler.text.Split("<br>");
                 foreach (string s in result)
@@ -62,7 +62,7 @@ public class DatabaseLoader : MonoBehaviour
             else
             {
                 //Show results as text
-                Debug.LogWarning(www.downloadHandler.text);
+                Debug.Log(www.downloadHandler.text);
             }
         }
     }
@@ -87,7 +87,7 @@ public class DatabaseLoader : MonoBehaviour
             else
             {
                 //Show results as text
-                Debug.LogWarning(www.downloadHandler.text);
+                Debug.Log(www.downloadHandler.text);
             }
         }
     }
@@ -109,11 +109,11 @@ public class DatabaseLoader : MonoBehaviour
             else
             {
                 //Transforms string to json.
-                Debug.LogWarning("loading file data on: " + Application.persistentDataPath + "/GridData.json");
+                Debug.Log("loading file data on: " + Application.persistentDataPath + "/GridData.json");
                 System.IO.File.WriteAllText(Application.persistentDataPath + "/GridData.json", www.downloadHandler.text);
 
                 //Show results as text
-                Debug.LogWarning(www.downloadHandler.text);
+                Debug.Log(www.downloadHandler.text);
 
                 string[] result = www.downloadHandler.text.Split("<br>");
                 foreach (string s in result)

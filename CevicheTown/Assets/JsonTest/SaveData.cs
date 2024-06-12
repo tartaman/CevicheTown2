@@ -38,7 +38,7 @@ public class SaveData : MonoBehaviour
             _building.currRange = b.currRange;
             _building.needResourceId = b.neededResourceId;
 
-            Debug.LogWarning($"Saving {b.gameObject.name}");
+            Debug.Log($"Saving {b.gameObject.name}");
             _user.grid.buildings.Add(_building);
 
         }
@@ -62,13 +62,13 @@ public class SaveData : MonoBehaviour
             _resource.producesId = r.producesId;
             _resource.quantity = r.quantity;
 
-            Debug.LogWarning($"Saving {r.gameObject.name}");
+            Debug.Log($"Saving {r.gameObject.name}");
             _user.grid.resources.Add(_resource);
         }
 
         _user.Money = GameObject.FindWithTag("MissionsManager").GetComponent<MissionsManager>().missionProgress.money;
 
-        Debug.LogWarning(Application.persistentDataPath + "/GridData.json");
+        Debug.Log(Application.persistentDataPath + "/GridData.json");
         string gridData = JsonUtility.ToJson(_user);
         StartCoroutine(GameObject.Find("GameManager").GetComponent<DatabaseLoader>().saveGame(_user.Name, _user.grid.fileName, gridData));
         System.IO.File.WriteAllText(Application.persistentDataPath + "/GridData.json", gridData);
