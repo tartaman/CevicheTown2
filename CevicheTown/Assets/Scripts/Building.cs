@@ -54,7 +54,7 @@ public class Building : MonoBehaviour
     //Area del rando
     public BoundsInt currRange;
     //Encapsulamiento del rango
-    public int Range { get { return range; } }
+    public int Range { get { return range; } set { range = value; } }
     //Cosas o recursos dentro del rango
     public List<Vector3Int> withinRange;
     //Identificador del recurso que genera, en este caso es el nombre en la base de datos
@@ -66,6 +66,15 @@ public class Building : MonoBehaviour
     //Lista de los recursos dentro del rango
     [SerializeField]
     private List<ResourceScript> ResourcesInsideRange;
+
+    [SerializeField] AudioClip audioConstruccion;
+    AudioSource audioSourceBuild;
+
+    private void Awake()
+    {
+        audioSourceBuild = GameObject.FindGameObjectWithTag("ShopManager").GetComponent<AudioSource>();
+    }
+
     private void Start()
     {
         ProducedMaterialSprite = database.resourcedata.Find(x => x.Name == neededResourceId).sprite;
@@ -185,6 +194,8 @@ public class Building : MonoBehaviour
         ShopController.instance.missionProgress.money -= (int)cost;
         if (TypeBuilding.Deco == buildingType || TypeBuilding.Generative == buildingType)
             GridBuildingSystem.instance.placedBuildings.Add(this);
+        audioSourceBuild.clip = audioConstruccion;
+        audioSourceBuild.Play();
     }
     public int SetSortingOrder()
     {
@@ -208,43 +219,34 @@ public class Building : MonoBehaviour
     #endregion
     private void CheckIfInsideRange()
     {
-                // Iterar sobre todas las posiciones dentro del rango del edificio
-        foreach (var position in currRange.allPositionsWithin)
+        Debug.Log("Checking Range");
+        // Iterar sobre todas las posiciones dentro del rango del edificio
+        foreach (var Rangeposition in currRange.allPositionsWithin)
         {
             foreach (ResourceScript resource in GridBuildingSystem.instance.Enviroment)
             {
-                foreach (var RePos in resource.posTilesAround)
-                {
                     // Verificar si la posición actual coincide con la posición del recurso
-                    if (RePos == position)
+                    if (resource.area.position == Rangeposition)
                     {
-                        if (InventoryManager1.instance.resources.resourcedata.Find(x=> x.source.id == resource.producesId).Name == neededResourceId)
+                        //saber si el recurso dentro es el tipo de recurso que necesita
+                        if (InventoryManager1.instance.resources.resourcedata.Find(x => x.source.id == resource.producesId).Name == neededResourceId)
                         {
                             // El recurso está dentro del rango del edificio
                             HasNeededResource = true;
-
-                            //Si el recurso es cercano, verifica que no se esté en la capacidad máxima para recogerlo
-                            if(InventoryManager1.instance.resources.resourcedata.Find(x => x.source.id == resource.producesId).quantity 
-                                <= InventoryManager1.instance.resources.resourcedata.Find(x => x.source.id == resource.producesId).MaxQuantity)
+                            if (!ResourcesInsideRange.Contains(resource))
                             {
-                                if (!ResourcesInsideRange.Contains(resource))
-                                {
-                                    ResourcesInsideRange.Add(resource);
-                                }
-                                Debug.Log($"Building at {area.position} has the needed resource.");
+                                ResourcesInsideRange.Add(resource);
                             }
-                            else
-                            {
-                                Debug.Log($"Resource is at it's Maximun Capacity");
-                            }
+                            Debug.Log($"Building at {area.position} has the needed resource.");
 
-                        } else
+                        }
+                        else
                         {
                             HasNeededResource = false;
                             ResourcesInsideRange.Clear();
                         }
                     }
-                }
+                
             }
         }
     }

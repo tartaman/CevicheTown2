@@ -12,7 +12,6 @@ public class ResourceScript : Building
     public List<Vector3Int> posTilesAround;
     public int producesId;
     public int quantity;
-    public int MaxQuantity;
     public bool isPrimary;
     private bool isCoroutineRunning = false;
     [SerializeField]
@@ -25,8 +24,6 @@ public class ResourceScript : Building
         producesId = InventoryManager1.instance.resources.resourcedata.Find(x => x.source.id == id).ID;
         quantity = 10;
         isPrimary = false;
-        //Agrega el valor máximo que puede tener cierto recurso
-        MaxQuantity = InventoryManager1.instance.resources.resourcedata.Find(x => x.source.id == id).MaxQuantity;
     }
     private void Update()
     {
