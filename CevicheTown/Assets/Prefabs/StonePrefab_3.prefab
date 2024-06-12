@@ -143,7 +143,7 @@ MonoBehaviour:
   selectedMaterialOverride: {fileID: 2100000, guid: 22cc67e5ce12e994dbd4c5df30b5f7ad, type: 2}
   AcceptedTile: {fileID: 11400000, guid: 1faa9c02580266140a1599a70346c9c8, type: 2}
   ProducedMaterialSprite: {fileID: 0}
-  range: 0
+  range: 2
   currRange:
     m_Position: {x: 0, y: 0, z: 0}
     m_Size: {x: 0, y: 0, z: 0}
@@ -151,12 +151,15 @@ MonoBehaviour:
   neededResourceId: 0
   HasNeededResource: 0
   ResourcesInsideRange: []
+  audioConstruccion: {fileID: 0}
   id: 1
   posTilesAround: []
   producesId: 0
-  quantity: 0
+  quantity: 100
   isPrimary: 0
   alreadyPlaced: []
+  TiempoParaGenerar: 1
+  generateAround: {fileID: 1679267264666306934, guid: 1bf8a7389aa2c5548a57b20513074d27, type: 3}
 --- !u!60 &7771291555679854499
 PolygonCollider2D:
   m_ObjectHideFlags: 0

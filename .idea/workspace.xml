@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="7d63355d-d6a8-4f97-b3a1-f921bb64543c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/CevicheTown/Assets/Prefabs/FabricaPrefab.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/CevicheTown/Assets/Prefabs/FabricaPrefab.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CevicheTown/Assets/Prefabs/StonePrefab_1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/CevicheTown/Assets/Prefabs/StonePrefab_1.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CevicheTown/Assets/Prefabs/StonePrefab_2.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/CevicheTown/Assets/Prefabs/StonePrefab_2.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CevicheTown/Assets/Prefabs/StonePrefab_3.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/CevicheTown/Assets/Prefabs/StonePrefab_3.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CevicheTown/Assets/Prefabs/StonePrefab_4.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/CevicheTown/Assets/Prefabs/StonePrefab_4.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CevicheTown/Assets/Prefabs/StonePrefab_5.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/CevicheTown/Assets/Prefabs/StonePrefab_5.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CevicheTown/Assets/Prefabs/StonePrefab_6.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/CevicheTown/Assets/Prefabs/StonePrefab_6.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CevicheTown/Assets/Prefabs/TreePrefab_1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/CevicheTown/Assets/Prefabs/TreePrefab_1.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CevicheTown/Assets/Prefabs/TreePrefab_2.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/CevicheTown/Assets/Prefabs/TreePrefab_2.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CevicheTown/Assets/Prefabs/TreePrefab_3.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/CevicheTown/Assets/Prefabs/TreePrefab_3.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CevicheTown/Assets/Scenes/QuienSabe.unity" beforeDir="false" afterPath="$PROJECT_DIR$/CevicheTown/Assets/Scenes/QuienSabe.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CevicheTown/Assets/Scripts/ResourceScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CevicheTown/Assets/Scripts/ResourceScript.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CevicheTown/Assets/Scripts/ResourcesDatabase.asset" beforeDir="false" afterPath="$PROJECT_DIR$/CevicheTown/Assets/Scripts/ResourcesDatabase.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CevicheTown/Assets/Tiles/WaterTile.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/CevicheTown/Assets/Tiles/WaterTile.png.meta" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 3
+}]]></component>
+  <component name="ProjectId" id="2hn1CEEUBkRnsHoRJ9raBrXtBm7" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7d63355d-d6a8-4f97-b3a1-f921bb64543c" name="Changes" comment="" />
+      <created>1718214898410</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1718214898410</updated>
+    </task>
+    <servers />
+  </component>
+</project>

@@ -119,12 +119,15 @@ MonoBehaviour:
   neededResourceId: 
   HasNeededResource: 0
   ResourcesInsideRange: []
+  audioConstruccion: {fileID: 0}
   id: 0
   posTilesAround: []
   producesId: 0
-  quantity: 0
+  quantity: 10
   isPrimary: 0
   alreadyPlaced: []
+  TiempoParaGenerar: 1
+  generateAround: {fileID: -266499456305326082, guid: a51addec92bbdfe41b14fbb85ed7e437, type: 3}
 --- !u!60 &4708943917942538582
 PolygonCollider2D:
   m_ObjectHideFlags: 0

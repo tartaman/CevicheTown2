@@ -6,7 +6,8 @@ public class SpawnResourcesRandom : MonoBehaviour
 {
     [SerializeField]
     ResourcesDatabase database;
-    [SerializeField] GameObject[] ResourceGO;
+    [SerializeField] List<GameObject> ResourceGO;
+    [SerializeField]List<GameObject> startResources = new List<GameObject>(); 
     ResourceScript[] resourceScripts;
     [SerializeField]
     int StartNumberOfResources;
@@ -14,10 +15,13 @@ public class SpawnResourcesRandom : MonoBehaviour
     void Start()
     {
         // Inicializa el array de resourceScripts con la longitud correcta
-        resourceScripts = new ResourceScript[ResourceGO.Length];
-
+        resourceScripts = new ResourceScript[ResourceGO.Count];
+        foreach (var resource in ResourceGO)
+        {
+            startResources.Add(resource);
+        }
         // Obtén los scripts ResourceScript de los GameObjects ResourceGO
-        for (int i = 0; i < ResourceGO.Length; i++)
+        for (int i = 0; i < ResourceGO.Count; i++)
         {
             resourceScripts[i] = ResourceGO[i].GetComponent<ResourceScript>();
         }
@@ -62,6 +66,7 @@ public class SpawnResourcesRandom : MonoBehaviour
                     }
                     if (randomResourceGO != null && rand == 1 && StartNumberOfResources > 0)//Dez percenche de probabilidade
                     {
+                        ResourceGO.Remove(randomResourceGO);
                         GameObject resourceGO = Instantiate(randomResourceGO, tilemap.CellToLocal(tilePosition), Quaternion.identity);
                         ResourceScript resourceScriptInstance = resourceGO.GetComponent<ResourceScript>();
                         resourceScriptInstance.area.position = tilePosition;
@@ -93,10 +98,16 @@ public class SpawnResourcesRandom : MonoBehaviour
     }
     GameObject GetRandomResourceGO()
     {
-        if (ResourceGO.Length > 0)
+        if (ResourceGO.Count > 0)
         {
-            int randomIndex = Random.Range(0, ResourceGO.Length);
-            return ResourceGO[randomIndex];
+            GameObject toreturn = ResourceGO[0];
+            return toreturn;
+        }
+        else if (ResourceGO.Count == 0)
+        {
+            int randomIndex = Random.Range(0, ResourceGO.Count);
+            GameObject toreturn = startResources[randomIndex];
+            return toreturn;
         }
         else
         {

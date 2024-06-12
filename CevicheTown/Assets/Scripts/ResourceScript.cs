@@ -18,6 +18,8 @@ public class ResourceScript : Building
     List<Vector3Int> alreadyPlaced;
     [SerializeField]
     float TiempoParaGenerar;
+    [SerializeField]
+    ResourceScript generateAround;
     private void Start()
     {
         posTilesAround = new List<Vector3Int>();
@@ -141,9 +143,9 @@ public class ResourceScript : Building
     {
         Vector3Int randomPos = posTilesAround[Random.Range(0, posTilesAround.Count)];
 
-        if (AcceptedTile == GridBuildingSystem.instance.maintilemap.GetTile(randomPos))
+        if (generateAround.AcceptedTile == GridBuildingSystem.instance.maintilemap.GetTile(randomPos))
         {
-            GameObject resourceGO = Instantiate(gameObject, GridBuildingSystem.instance.maintilemap.CellToLocal(randomPos), Quaternion.identity);
+            GameObject resourceGO = Instantiate(generateAround.gameObject, GridBuildingSystem.instance.maintilemap.CellToLocal(randomPos), Quaternion.identity);
             ResourceScript resourceScriptInstance = resourceGO.GetComponent<ResourceScript>();
             resourceScriptInstance.isPrimary = false;
             resourceScriptInstance.area.position = randomPos;

@@ -65,7 +65,7 @@ MonoBehaviour:
     m_Position: {x: 0, y: 0, z: 0}
     m_Size: {x: 0, y: 0, z: 0}
   withinRange: []
-  neededResourceId: Stone
+  neededResourceId: Water
   HasNeededResource: 0
   ResourcesInsideRange: []
   audioConstruccion: {fileID: 8300000, guid: f117152feda5491479eebff40fff3286, type: 3}
