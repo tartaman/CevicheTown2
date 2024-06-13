@@ -12,7 +12,7 @@ public class DatabaseLoader : MonoBehaviour
     [SerializeField] public string password;
     [SerializeField] public string fileName;
     [SerializeField] public string fileContents;
-
+    public static string direcciondelJSON;
     public IEnumerator getUserData(string username, string password)
     {
         WWWForm form = new WWWForm();
@@ -31,7 +31,7 @@ public class DatabaseLoader : MonoBehaviour
             {
                 //Show results as text
                 Debug.LogWarning(www.downloadHandler.text);
-
+                direcciondelJSON = www.downloadHandler.text;
                 string[] result = www.downloadHandler.text.Split("<br>");
                 foreach (string s in result)
                 {
