@@ -12,13 +12,14 @@ public class DatabaseLoader : MonoBehaviour
     [SerializeField] public string password;
     [SerializeField] public string fileName;
     [SerializeField] public string fileContents;
-
+    [SerializeField] LoadExistingGame loader;
+    public string JSONDATA = "";
     public IEnumerator getUserData(string username, string password)
     {
         WWWForm form = new WWWForm();
         form.AddField("username", username);
         form.AddField("password", password);
-
+        
         using (UnityWebRequest www = UnityWebRequest.Post("http://localhost/CevicheTown/Login.php", form))
         {
             yield return www.SendWebRequest();
@@ -31,7 +32,6 @@ public class DatabaseLoader : MonoBehaviour
             {
                 //Show results as text
                 Debug.LogWarning(www.downloadHandler.text);
-
                 string[] result = www.downloadHandler.text.Split("<br>");
                 foreach (string s in result)
                 {
@@ -42,7 +42,9 @@ public class DatabaseLoader : MonoBehaviour
                     }
                 }
             }
+            JSONDATA = www.downloadHandler.text;
         }
+        loader.checkJSON();
     }
 
     public IEnumerator signUpUser(string username, string password)
@@ -73,8 +75,8 @@ public class DatabaseLoader : MonoBehaviour
         form.AddField("username", username);
         form.AddField("fileName", nombrePartida);
         form.AddField("fileContents", partida);
-        
-        GameObject.Find("GameManager").GetComponent<SaveData>()._user.grid.fileName = nombrePartida.Trim(new char[] {' ', '\\', '/', '@', '?', '=', '#', '$', '%' });
+
+        GameObject.Find("GameManager").GetComponent<SaveData>()._user.grid.fileName = nombrePartida.Trim(new char[] { ' ', '\\', '/', '@', '?', '=', '#', '$', '%' });
 
         using (UnityWebRequest www = UnityWebRequest.Post("http://localhost/CevicheTown/SaveGame.php", form))
         {
@@ -91,7 +93,6 @@ public class DatabaseLoader : MonoBehaviour
             }
         }
     }
-
     public IEnumerator loadGame(string username, string nombrePartida)
     {
         WWWForm form = new WWWForm();
