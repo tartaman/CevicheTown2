@@ -24,6 +24,8 @@ public class LoginManagerA : MonoBehaviour
     Canvas LoginCanvas;
     [SerializeField]
     LoadExistingGame loader;
+    [SerializeField]
+    Canvas SlotCanvas;
     private void Start()
     {
         databaseLoader = gameManager.GetComponent<DatabaseLoader>();
@@ -37,13 +39,14 @@ public class LoginManagerA : MonoBehaviour
         if (databaseLoader.JSONDATA != null) 
         {
             LoginCanvas.gameObject.SetActive(false);
+            SlotCanvas.gameObject.SetActive(true);
         }
-        Time.timeScale = 1.0f;
     }
     public void Invitado()
     {
         Time.timeScale = 1.0f;
         LoginCanvas.gameObject.SetActive(false);
+        loader.grid.GetComponent<SpawnResourcesRandom>().PlaceInitialResources();
     }
     public void signUp()
     {

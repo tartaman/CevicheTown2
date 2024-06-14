@@ -6,7 +6,7 @@ using UnityEngine;
 public class JsonReader : MonoBehaviour
 {
     [SerializeField] public string jsonFile;
-    [SerializeField] aUser user;
+    [SerializeField] public aUser user;
 
     private void Awake()
     {
@@ -18,7 +18,7 @@ public class JsonReader : MonoBehaviour
         user = JsonUtility.FromJson<aUser>(jsonFile);
     }
 
-    public void onClick()
+    public void ParseJson()
     {
         user = JsonUtility.FromJson<aUser>(jsonFile);
     }

@@ -32,9 +32,7 @@ public class ResourceScript : Building
         
         if (quantity == 0)
         {
-            GridBuildingSystem.SetTilesBlock(area, tileTypes.Accepted, GridBuildingSystem.instance.maintilemap);
-            GridBuildingSystem.instance.Enviroment.Remove(this);
-            Destroy(gameObject);
+            Remove();
         }
         if (isPrimary)
         {
@@ -71,7 +69,12 @@ public class ResourceScript : Building
         }
         
     }
-
+    public override void Remove()
+    {
+        GridBuildingSystem.SetTilesBlock(area, tileTypes.Accepted, GridBuildingSystem.instance.maintilemap);
+        GridBuildingSystem.instance.Enviroment.Remove(this);
+        Destroy(gameObject);
+    }
     public List<Vector3Int> GetTilesAround()
     {
         BoundsInt buildingArea = new BoundsInt(GridBuildingSystem.instance.gridLayout.WorldToCell(transform.position), area.size);

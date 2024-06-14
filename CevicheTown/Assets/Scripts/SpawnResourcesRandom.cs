@@ -25,10 +25,7 @@ public class SpawnResourcesRandom : MonoBehaviour
         {
             resourceScripts[i] = ResourceGO[i].GetComponent<ResourceScript>();
         }
-        while (StartNumberOfResources > 0)
-        {
-            PlaceInitialResources();
-        }
+        
     }
     private void Update()
     {
@@ -39,58 +36,61 @@ public class SpawnResourcesRandom : MonoBehaviour
     }
     public  void PlaceInitialResources()
     {
-        // Obtén el Tilemap
-        Tilemap tilemap = GridBuildingSystem.instance.maintilemap;
-        BoundsInt bounds = tilemap.cellBounds;
-
-        // Itera sobre todas las posiciones del Tilemap
-        for (int x = bounds.xMin; x < bounds.xMax; x++)
+        while (StartNumberOfResources > 0)
         {
-            for (int y = bounds.yMin; y < bounds.yMax; y++)
-            {
-                Vector3Int tilePosition = new Vector3Int(Random.Range(bounds.xMin, bounds.xMax), Random.Range(bounds.yMin, bounds.yMax), 0);
-                // Verifica si hay un tile en la posición actual del Tilemap
-                if (tilemap.HasTile(tilePosition))
-                {
-                    // Selecciona aleatoriamente un GameObject de la lista de recursos disponibles
-                    GameObject randomResourceGO = GetRandomResourceGO();
-                    //Debug.Log($"mi random resource fue: {randomResourceGO}");
-                    // Coloca el recurso aleatorio en la posición actual
-                    int rand = Random.Range(1, 11);
-                    //Debug.Log(rand);
-                    foreach (var resource in database.resourcedata) 
-                    {
-                        //Debug.Log($"{resource.Name}");
-                        //Aqui se pondria un place como los de abajo con cada uno de los recursos para que pueda tener un recurso de cada
-                        //uno que sea necesario para progresar
-                    }
-                    if (randomResourceGO != null && rand == 1 && StartNumberOfResources > 0)//Dez percenche de probabilidade
-                    {
-                        ResourceGO.Remove(randomResourceGO);
-                        GameObject resourceGO = Instantiate(randomResourceGO, tilemap.CellToLocal(tilePosition), Quaternion.identity);
-                        ResourceScript resourceScriptInstance = resourceGO.GetComponent<ResourceScript>();
-                        resourceScriptInstance.area.position = tilePosition;
-                        resourceScriptInstance.isPrimary = true;
-                        resourceScriptInstance.area.position = tilePosition;
-                        bool hasAllAcceptedTiles = true;
-                        foreach (var tile in tilemap.GetTilesBlock(resourceScriptInstance.area))
-                        {
-                            if (tile != resourceScriptInstance.AcceptedTile)
-                            {
-                                hasAllAcceptedTiles = false;
-                            }
-                        }
+            // Obtén el Tilemap
+            Tilemap tilemap = GridBuildingSystem.instance.maintilemap;
+            BoundsInt bounds = tilemap.cellBounds;
 
-                        if (hasAllAcceptedTiles)
+            // Itera sobre todas las posiciones del Tilemap
+            for (int x = bounds.xMin; x < bounds.xMax; x++)
+            {
+                for (int y = bounds.yMin; y < bounds.yMax; y++)
+                {
+                    Vector3Int tilePosition = new Vector3Int(Random.Range(bounds.xMin, bounds.xMax), Random.Range(bounds.yMin, bounds.yMax), 0);
+                    // Verifica si hay un tile en la posición actual del Tilemap
+                    if (tilemap.HasTile(tilePosition))
+                    {
+                        // Selecciona aleatoriamente un GameObject de la lista de recursos disponibles
+                        GameObject randomResourceGO = GetRandomResourceGO();
+                        //Debug.Log($"mi random resource fue: {randomResourceGO}");
+                        // Coloca el recurso aleatorio en la posición actual
+                        int rand = Random.Range(1, 11);
+                        //Debug.Log(rand);
+                        foreach (var resource in database.resourcedata)
                         {
-                            resourceScriptInstance.SetSortingOrder();
-                            resourceScriptInstance.Place();
-                            primaryResources.Add(resourceScriptInstance);
-                            StartNumberOfResources--;
+                            //Debug.Log($"{resource.Name}");
+                            //Aqui se pondria un place como los de abajo con cada uno de los recursos para que pueda tener un recurso de cada
+                            //uno que sea necesario para progresar
                         }
-                        else 
-                            Destroy(resourceGO);
-                        
+                        if (randomResourceGO != null && rand == 1 && StartNumberOfResources > 0)//Dez percenche de probabilidade
+                        {
+                            ResourceGO.Remove(randomResourceGO);
+                            GameObject resourceGO = Instantiate(randomResourceGO, tilemap.CellToLocal(tilePosition), Quaternion.identity);
+                            ResourceScript resourceScriptInstance = resourceGO.GetComponent<ResourceScript>();
+                            resourceScriptInstance.area.position = tilePosition;
+                            resourceScriptInstance.isPrimary = true;
+                            resourceScriptInstance.area.position = tilePosition;
+                            bool hasAllAcceptedTiles = true;
+                            foreach (var tile in tilemap.GetTilesBlock(resourceScriptInstance.area))
+                            {
+                                if (tile != resourceScriptInstance.AcceptedTile)
+                                {
+                                    hasAllAcceptedTiles = false;
+                                }
+                            }
+
+                            if (hasAllAcceptedTiles)
+                            {
+                                resourceScriptInstance.SetSortingOrder();
+                                resourceScriptInstance.Place();
+                                primaryResources.Add(resourceScriptInstance);
+                                StartNumberOfResources--;
+                            }
+                            else
+                                Destroy(resourceGO);
+
+                        }
                     }
                 }
             }

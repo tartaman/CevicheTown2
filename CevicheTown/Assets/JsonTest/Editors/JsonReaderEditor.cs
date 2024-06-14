@@ -12,7 +12,7 @@ public class JsonReaderEditor : Editor
 
         if (GUILayout.Button("Read Json"))
         {
-            jsonReader.onClick();
+            jsonReader.ParseJson();
         }
 
         DrawDefaultInspector();

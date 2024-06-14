@@ -295,6 +295,12 @@ public class Building : MonoBehaviour
             }
         }
     }
+    public virtual void Remove()
+    {
+        GridBuildingSystem.SetTilesBlock(area, tileTypes.Accepted, GridBuildingSystem.instance.maintilemap);
+        GridBuildingSystem.instance.placedBuildings.Remove(this);
+        Destroy(gameObject);
+    }
 }
 
 public enum TypeBuilding

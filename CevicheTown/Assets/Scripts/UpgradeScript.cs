@@ -57,6 +57,12 @@ public class UpgradeScript : MonoBehaviour
             selectedBuilding.cost += UpgradeProductionCost;
         }
     }
+    public void DeleteBuilding()
+    {
+        isUpgrading = false;
+        UpgradeCanvas.gameObject.SetActive(false);
+        selectedBuilding.Remove();
+    }
     public void ClickedOtherwhere()
     {
         if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))

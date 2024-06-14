@@ -2,38 +2,54 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditorInternal;
 using UnityEngine;
+using System.IO;
 using SimpleJSON;
+using System.Threading;
 public class LoadExistingGame : MonoBehaviour
 {
     [SerializeField]
     DatabaseLoader databaseLoader;
-    [System.Serializable]
-    public class BuildingList
+    [SerializeField]
+    public JsonReader jsonReader;
+    [SerializeField]
+    public GridBuildingSystem grid;
+    public ResourcesDatabase Resourcedatabase;
+    public ObjectsDatabase buildingDatabase;
+    public void LoadGame()
     {
-        public aBuilding[] building;
-    }
-    [System.Serializable]
-    public class ResourcesList
-    {
-        public aResource[] resource;
-    }
-
-    public BuildingList buildings = new BuildingList();
-    public ResourcesList resources = new ResourcesList();
-    public void checkJSON()
-    {
-
-        if (databaseLoader.JSONDATA != null) 
+        Time.timeScale = 1.0f;
+        databaseLoader.StartCoroutine(databaseLoader.loadGame(databaseLoader.username, databaseLoader.fileName));
+        Debug.Log("Loading game: " + databaseLoader.fileName);
+        Thread.Sleep(500);
+        foreach(var build in jsonReader.user.grid.buildings)
         {
-            string jsonBuildings = "\"buildings" + databaseLoader.JSONDATA.Split("buildings")[1];
-            jsonBuildings = jsonBuildings.Split("resources")[0];
-            string jsonresources = "\"resources\"" + databaseLoader.JSONDATA.Split("resources")[1];
-            Debug.Log(jsonresources);
-            resources = JsonUtility.FromJson<ResourcesList>(jsonresources);
-            Debug.Log(jsonBuildings);
-            buildings = JsonUtility.FromJson<BuildingList>(jsonBuildings);
-            //Building[] buildings = JsonUtility.FromJson<Building[]>(jsonBuildings);
-            //ResourceScript[] Resources = JsonUtility.FromJson<ResourceScript[]>(jsonresources);
+            GameObject a = buildingDatabase.objectsdata.Find(x => x.Name == build.name).prefab;
+            ResourceScript script = Instantiate(a.GetComponent<ResourceScript>());
+            script.currRange = build.currRange;
+            script.transform.position = build.Position;
+            script.transform.rotation = build.Rotation;
+            script.Place();
+        }
+        foreach (var re in jsonReader.user.grid.resources)
+        {
+            ResourceScript a = Resourcedatabase.resourcedata.Find(x => x.Name == re.name).prefab;
+            a.currRange = re.currRange;
+            a.transform.position = re.Position;
+            a.transform.rotation = re.Rotation;
+            a.Place();
+        }
+        
+    }
+    public void ResetGrid()
+    {
+        foreach (var thing in grid.placedBuildings)
+        {
+            thing.Remove();
+        }
+        foreach (var thing in grid.Enviroment)
+        {
+            thing.Remove();
+            Destroy(thing.gameObject);
         }
     }
 }

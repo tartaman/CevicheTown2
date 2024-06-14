@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
@@ -126,5 +127,7 @@ public class DatabaseLoader : MonoBehaviour
 
             }
         }
+        loader.jsonReader.jsonFile = File.ReadAllText($"{Application.persistentDataPath}/GridData.json");
+        loader.jsonReader.ParseJson();
     }
 }
