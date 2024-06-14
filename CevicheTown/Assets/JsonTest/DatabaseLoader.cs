@@ -44,7 +44,7 @@ public class DatabaseLoader : MonoBehaviour
             }
             JSONDATA = www.downloadHandler.text;
         }
-        loader.checkJSON();
+        //loader.checkJSON();
     }
 
     public IEnumerator signUpUser(string username, string password)

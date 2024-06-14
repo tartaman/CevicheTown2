@@ -11,7 +11,7 @@ public class MissionsManager : MonoBehaviour
 {
     [SerializeField] public MissionProgress missionProgress;
     [SerializeField] private MissionsDatabase missionsDatabase;
-    [SerializeField] private ResourcesDatabase resourcesDatabase;
+    [SerializeField] public ResourcesDatabase resourcesDatabase;
     [SerializeField] private GameObject missionWidget;
     [SerializeField] private GameObject panel;
     [SerializeField] private GameObject ItemDisplay;

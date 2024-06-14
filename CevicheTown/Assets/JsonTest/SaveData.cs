@@ -17,6 +17,7 @@ public class SaveData : MonoBehaviour
 
     public void SaveIntoJson()
     {
+        _user.Money = _user.Wood = _user.Stone = _user.Water = 0;
         _user.grid.buildings.Clear();
         _user.grid.resources.Clear();
 
@@ -67,6 +68,10 @@ public class SaveData : MonoBehaviour
         }
 
         _user.Money = GameObject.FindWithTag("MissionsManager").GetComponent<MissionsManager>().missionProgress.money;
+        _user.Wood = GameObject.FindWithTag("MissionsManager").GetComponent<MissionsManager>().resourcesDatabase.resourcedata[0].quantity;
+        _user.Stone = GameObject.FindWithTag("MissionsManager").GetComponent<MissionsManager>().resourcesDatabase.resourcedata[1].quantity;
+        _user.Water = GameObject.FindWithTag("MissionsManager").GetComponent<MissionsManager>().resourcesDatabase.resourcedata[2].quantity;
+
 
         Debug.LogWarning(Application.persistentDataPath + "/GridData.json");
         string gridData = JsonUtility.ToJson(_user);
@@ -77,10 +82,19 @@ public class SaveData : MonoBehaviour
 }
 
 [System.Serializable]
+public class allGames
+{
+    public List<aUser> users;
+}
+
+[System.Serializable]
 public class aUser
 {
     public string Name;
     public int Money;
+    public int Stone;
+    public int Wood;
+    public int Water;
     public aGrid grid;
 }
 
